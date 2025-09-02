@@ -1,10 +1,16 @@
+import os
 from app import create_app
 
+# Create the Flask app instance
 app = create_app()
 
 if __name__ == '__main__':
-    print("🚀 Starting StartupTracker...")
-    print("📊 Customer Analytics for Early-Stage Startups")
-    print("🌐 Open your browser to: http://localhost:5000")
-    print("=" * 50)
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    # Get port from Railway environment variable, default to 5000 for local development
+    port = int(os.environ.get('PORT', 5000))
+    
+    # Run the app (for local development)
+    app.run(
+        host='0.0.0.0',  # Listen on all addresses
+        port=port,       # Use Railway's port
+        debug=False      # Disable debug in production
+    )
