@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startup Metrics Tutorial - StartupTracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .metric-card:nth-child(2) {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .metric-card:nth-child(3) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .metric-card:nth-child(4) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        .instruction-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .instruction-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-gray-900">🚀 Startup Metrics Tutorial</h1>
+                <p class="text-gray-600 mt-2 text-lg">Learn what metrics to track and how to get them from Google Analytics</p>
+                <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-sm mt-4 inline-block">
+                    📚 Educational Guide - Click on any metric card to learn how to track it
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Key Business Metrics -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                📈 Key Business Metrics - Click to Learn How to Track
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- LTV Card -->
+                <div class="metric-card text-white p-6 rounded-xl shadow-lg" onclick="showInstructions('ltv')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm opacity-90">Lifetime Value (LTV)</p>
+                            <p class="text-3xl font-bold">$2,847</p>
+                            <p class="text-sm mt-2">Click to learn how to calculate</p>
+                        </div>
+                        <div class="text-4xl opacity-80">💰</div>
+                    </div>
+                </div>
+
+                <!-- CAC Card -->
+                <div class="metric-card text-white p-6 rounded-xl shadow-lg" onclick="showInstructions('cac')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm opacity-90">Customer Acquisition Cost (CAC)</p>
+                            <p class="text-3xl font-bold">$127</p>
+                            <p class="text-sm mt-2">Click to learn how to track</p>
+                        </div>
+                        <div class="text-4xl opacity-80">🎯</div>
+                    </div>
+                </div>
+
+                <!-- LTV:CAC Ratio Card -->
+                <div class="metric-card text-white p-6 rounded-xl shadow-lg" onclick="showInstructions('ltv-cac')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm opacity-90">LTV:CAC Ratio</p>
+                            <p class="text-3xl font-bold">22.4</p>
+                            <p class="text-sm mt-2">Click to learn the formula</p>
+                        </div>
+                        <div class="text-4xl opacity-80">⚖️</div>
+                    </div>
+                </div>
+
+                <!-- MRR Card -->
+                <div class="metric-card text-white p-6 rounded-xl shadow-lg" onclick="showInstructions('mrr')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm opacity-90">Monthly Recurring Revenue (MRR)</p>
+                            <p class="text-3xl font-bold">$45,200</p>
+                            <p class="text-sm mt-2">Click to learn how to track</p>
+                        </div>
+                        <div class="text-4xl opacity-80">📊</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Additional Metrics -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                📊 Additional Important Metrics
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Conversion Rate -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow" onclick="showInstructions('conversion')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Conversion Rate</h3>
+                            <p class="text-2xl font-bold text-blue-600 mt-2">12.5%</p>
+                            <p class="text-sm text-gray-600 mt-1">Click to learn how to track</p>
+                        </div>
+                        <div class="text-3xl">📈</div>
+                    </div>
+                </div>
+
+                <!-- Churn Rate -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow" onclick="showInstructions('churn')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Churn Rate</h3>
+                            <p class="text-2xl font-bold text-red-600 mt-2">5.2%</p>
+                            <p class="text-sm text-gray-600 mt-1">Click to learn how to track</p>
+                        </div>
+                        <div class="text-3xl">📉</div>
+                    </div>
+                </div>
+
+                <!-- Retention Rate -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow" onclick="showInstructions('retention')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Retention Rate</h3>
+                            <p class="text-2xl font-bold text-green-600 mt-2">83.4%</p>
+                            <p class="text-sm text-gray-600 mt-1">Click to learn how to track</p>
+                        </div>
+                        <div class="text-3xl">🔄</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Revenue Growth Chart -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                📈 Revenue Growth (Last 12 Months) - Click to Learn How to Track
+            </h2>
+            <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:bg-gray-50 transition-colors" onclick="showInstructions('revenue-growth')">
+                <div style="height: 300px; position: relative;">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-sm text-gray-600">Click anywhere on this chart to learn how to track revenue growth</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customer Acquisition Channels -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                🎯 Customer Acquisition Channels - Click to Learn How to Track
+            </h2>
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Chart -->
+                    <div style="height: 300px; position: relative;">
+                        <canvas id="acquisitionChart"></canvas>
+                    </div>
+                    
+                    <!-- Clickable Channel Cards -->
+                    <div class="space-y-3">
+                        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg cursor-pointer hover:bg-blue-100 transition-colors" onclick="showInstructions('organic-search')">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-semibold text-blue-800">Organic Search</h3>
+                                    <p class="text-sm text-blue-600">35% of traffic</p>
+                                </div>
+                                <div class="text-blue-400">🔍</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-green-50 border-l-4 border-green-400 p-4 rounded-lg cursor-pointer hover:bg-green-100 transition-colors" onclick="showInstructions('social-media')">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-semibold text-green-800">Social Media</h3>
+                                    <p class="text-sm text-green-600">25% of traffic</p>
+                                </div>
+                                <div class="text-green-400">📱</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-lg cursor-pointer hover:bg-yellow-100 transition-colors" onclick="showInstructions('paid-ads')">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-semibold text-yellow-800">Paid Ads</h3>
+                                    <p class="text-sm text-yellow-600">20% of traffic</p>
+                                </div>
+                                <div class="text-yellow-400">💰</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-purple-50 border-l-4 border-purple-400 p-4 rounded-lg cursor-pointer hover:bg-purple-100 transition-colors" onclick="showInstructions('referrals')">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-semibold text-purple-800">Referrals</h3>
+                                    <p class="text-sm text-purple-600">12% of traffic</p>
+                                </div>
+                                <div class="text-purple-400">🤝</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-red-50 border-l-4 border-red-400 p-4 rounded-lg cursor-pointer hover:bg-red-100 transition-colors" onclick="showInstructions('direct-traffic')">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="font-semibold text-red-800">Direct Traffic</h3>
+                                    <p class="text-sm text-red-600">8% of traffic</p>
+                                </div>
+                                <div class="text-red-400">🔗</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Conversion Funnel Analysis -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                🔄 Conversion Funnel Analysis - Click Each Stage to Learn How to Track
+            </h2>
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('website-visitors')">
+                        <div class="bg-blue-100 text-blue-800 p-4 rounded-lg">
+                            <div class="text-2xl font-bold">12,450</div>
+                            <div class="text-sm">Website Visitors</div>
+                            <div class="text-xs text-gray-600">100%</div>
+                        </div>
+                    </div>
+                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('sign-ups')">
+                        <div class="bg-green-100 text-green-800 p-4 rounded-lg">
+                            <div class="text-2xl font-bold">1,245</div>
+                            <div class="text-sm">Sign-ups</div>
+                            <div class="text-xs text-gray-600">10.0%</div>
+                        </div>
+                    </div>
+                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('trial-users')">
+                        <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg">
+                            <div class="text-2xl font-bold">374</div>
+                            <div class="text-sm">Trial Users</div>
+                            <div class="text-xs text-gray-600">30.0%</div>
+                        </div>
+                    </div>
+                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('paid-customers')">
+                        <div class="bg-purple-100 text-purple-800 p-4 rounded-lg">
+                            <div class="text-2xl font-bold">187</div>
+                            <div class="text-sm">Paid Customers</div>
+                            <div class="text-xs text-gray-600">50.0%</div>
+                        </div>
+                    </div>
+                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('retained-customers')">
+                        <div class="bg-red-100 text-red-800 p-4 rounded-lg">
+                            <div class="text-2xl font-bold">156</div>
+                            <div class="text-sm">Retained (6mo)</div>
+                            <div class="text-xs text-gray-600">83.4%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <div class="text-blue-400">💡</div>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">Key Insights</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <ul class="list-disc list-inside space-y-1">
+                                    <li>Sign-up rate (10%) is above industry average (2-5%)</li>
+                                    <li>Trial-to-paid conversion (50%) is excellent</li>
+                                    <li>Retention rate (83.4%) indicates strong product-market fit</li>
+                                    <li>Focus on increasing website traffic to scale growth</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Behavior Analysis -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                👥 User Behavior Analysis - Click Each Section to Learn How to Track
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Feature Usage -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:bg-gray-50 transition-colors" onclick="showInstructions('feature-usage')">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        ⚡ Feature Usage
+                    </h3>
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Dashboard Analytics</span>
+                                <span>85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-600 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Export Reports</span>
+                                <span>67%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-600 h-2 rounded-full" style="width: 67%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>API Integration</span>
+                                <span>42%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-purple-600 h-2 rounded-full" style="width: 42%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-sm mb-1">
+                                <span>Custom Dashboards</span>
+                                <span>28%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-orange-600 h-2 rounded-full" style="width: 28%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Engagement -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:bg-gray-50 transition-colors" onclick="showInstructions('user-engagement')">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        👤 User Engagement
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-blue-600">4.2</div>
+                            <div class="text-sm text-gray-600">Avg. Sessions per User</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-green-600">12.5</div>
+                            <div class="text-sm text-gray-600">Avg. Minutes per Session</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-purple-600">67%</div>
+                            <div class="text-sm text-gray-600">Return User Rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cohort Retention -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:bg-gray-50 transition-colors" onclick="showInstructions('cohort-retention')">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        📊 Cohort Retention
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm">
+                            <thead>
+                                <tr class="border-b">
+                                    <th class="text-left py-2">Month</th>
+                                    <th class="text-center py-2">M0</th>
+                                    <th class="text-center py-2">M1</th>
+                                    <th class="text-center py-2">M2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b">
+                                    <td class="py-2">Jan 2024</td>
+                                    <td class="text-center py-2">100%</td>
+                                    <td class="text-center py-2">89%</td>
+                                    <td class="text-center py-2">76%</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-2">Feb 2024</td>
+                                    <td class="text-center py-2">100%</td>
+                                    <td class="text-center py-2">92%</td>
+                                    <td class="text-center py-2">81%</td>
+                                </tr>
+                                <tr class="border-b">
+                                    <td class="py-2">Mar 2024</td>
+                                    <td class="text-center py-2">100%</td>
+                                    <td class="text-center py-2">85%</td>
+                                    <td class="text-center py-2">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recommended Actions -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                ⭐ Recommended Actions
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- What's Working Well -->
+                <div class="bg-green-50 border-l-4 border-green-400 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-green-800 mb-4 flex items-center">
+                        ✅ What's Working Well
+                    </h3>
+                    <ul class="space-y-2 text-green-700">
+                        <li>• High trial-to-paid conversion rate (50%)</li>
+                        <li>• Strong customer retention (83.4%)</li>
+                        <li>• Excellent LTV:CAC ratio (22.4:1)</li>
+                        <li>• Consistent revenue growth (+18.7%)</li>
+                    </ul>
+                </div>
+
+                <!-- Areas for Improvement -->
+                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-lg">
+                    <h3 class="text-lg font-semibold text-yellow-800 mb-4 flex items-center">
+                        ⚠️ Areas for Improvement
+                    </h3>
+                    <ul class="space-y-2 text-yellow-700">
+                        <li>• Increase website traffic (current: 12,450/month)</li>
+                        <li>• Improve sign-up rate from 10% to 15%</li>
+                        <li>• Boost API integration usage (42%)</li>
+                        <li>• Expand custom dashboard adoption (28%)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Start Guide -->
+        <section class="mb-12">
+            <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-blue-800 mb-4">🚀 Quick Start Guide</h3>
+                <div class="text-blue-700 space-y-2">
+                    <p><strong>1.</strong> Set up Google Analytics 4 on your website</p>
+                    <p><strong>2.</strong> Click on any metric card above to learn how to track it</p>
+                    <p><strong>3.</strong> Follow the step-by-step instructions</p>
+                    <p><strong>4.</strong> Use the provided formulas to calculate your metrics</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Instruction Modal -->
+    <div id="instructionModal" class="instruction-modal">
+        <div class="instruction-content">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 id="modalTitle" class="text-2xl font-bold text-gray-900"></h2>
+                    <button onclick="closeInstructions()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+                </div>
+                <div id="modalContent" class="text-gray-700 space-y-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg font-semibold">StartupTracker - Educational Metrics Guide</p>
+            <p class="text-gray-400 mt-2">Learn the metrics that matter for your startup's success</p>
+        </div>
+    </footer>
+
+    <script>
+        const instructions = {
+            ltv: {
+                title: "💰 How to Calculate Customer Lifetime Value (LTV)",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is LTV?</h3>
+                    <p class="mb-4">Customer Lifetime Value is the total revenue you expect from a customer over their entire relationship with your business.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">LTV = (Average Order Value × Purchase Frequency × Customer Lifespan)</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to get this data from Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to GA4 → Reports → Monetization → Ecommerce purchases</strong></li>
+                        <li><strong>Average Order Value:</strong> Look at "Average purchase revenue"</li>
+                        <li><strong>Purchase Frequency:</strong> Go to Reports → Engagement → Events → "purchase" event</li>
+                        <li><strong>Customer Lifespan:</strong> Go to Reports → Engagement → Retention → Look at user retention over time</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• Average Order Value: $50</p>
+                        <p>• Purchase Frequency: 2 times per month</p>
+                        <p>• Customer Lifespan: 24 months</p>
+                        <p><strong>LTV = $50 × 2 × 24 = $2,400</strong></p>
+                    </div>
+                `
+            },
+            cac: {
+                title: "🎯 How to Calculate Customer Acquisition Cost (CAC)",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is CAC?</h3>
+                    <p class="mb-4">Customer Acquisition Cost is the total cost of acquiring a new customer, including all marketing and sales expenses.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">CAC = Total Marketing & Sales Costs ÷ Number of New Customers</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track this data:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Track Marketing Spend:</strong> Record all advertising costs (Google Ads, Facebook, etc.)</li>
+                        <li><strong>Track Sales Costs:</strong> Include sales team salaries, tools, commissions</li>
+                        <li><strong>Count New Customers:</strong> Go to GA4 → Reports → Acquisition → User acquisition</li>
+                        <li><strong>Calculate:</strong> Total costs ÷ New customers = CAC</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• Google Ads spend: $5,000</p>
+                        <p>• Facebook Ads spend: $3,000</p>
+                        <p>• Sales team costs: $2,000</p>
+                        <p>• New customers: 100</p>
+                        <p><strong>CAC = ($5,000 + $3,000 + $2,000) ÷ 100 = $100</strong></p>
+                    </div>
+                `
+            },
+            'ltv-cac': {
+                title: "⚖️ How to Calculate LTV:CAC Ratio",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is LTV:CAC Ratio?</h3>
+                    <p class="mb-4">This ratio shows how much value you get from a customer compared to how much it costs to acquire them.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">LTV:CAC Ratio = LTV ÷ CAC</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">What the numbers mean:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>3:1 or higher:</strong> Excellent! You're making 3x what you spend to acquire customers</li>
+                        <li><strong>2:1 to 3:1:</strong> Good, but room for improvement</li>
+                        <li><strong>1:1 to 2:1:</strong> Breaking even or small profit</li>
+                        <li><strong>Below 1:1:</strong> Losing money on each customer</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• LTV: $2,400</p>
+                        <p>• CAC: $100</p>
+                        <p><strong>LTV:CAC Ratio = $2,400 ÷ $100 = 24:1</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">This is excellent! You're making 24x what you spend.</p>
+                    </div>
+                `
+            },
+            mrr: {
+                title: "📊 How to Track Monthly Recurring Revenue (MRR)",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is MRR?</h3>
+                    <p class="mb-4">Monthly Recurring Revenue is the predictable monthly revenue from all your active subscriptions.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">MRR = Number of Active Subscribers × Average Revenue Per User (ARPU)</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track this in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Set up Ecommerce tracking:</strong> Enable enhanced ecommerce in GA4</li>
+                        <li><strong>Track subscription events:</strong> Set up "subscription_started" and "subscription_renewed" events</li>
+                        <li><strong>Count active subscribers:</strong> Go to Reports → Engagement → Events → "subscription_renewed"</li>
+                        <li><strong>Calculate ARPU:</strong> Total subscription revenue ÷ Number of subscribers</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• Active subscribers: 500</p>
+                        <p>• Average subscription price: $29/month</p>
+                        <p><strong>MRR = 500 × $29 = $14,500</strong></p>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Pro Tip:</h3>
+                    <p>Track MRR growth month-over-month to see if your business is growing sustainably.</p>
+                `
+            },
+            conversion: {
+                title: "📈 How to Track Conversion Rate",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Conversion Rate?</h3>
+                    <p class="mb-4">The percentage of visitors who complete a desired action (like making a purchase or signing up).</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">Conversion Rate = (Conversions ÷ Total Visitors) × 100</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Set up Goals:</strong> Go to Admin → Goals → Create new goal</li>
+                        <li><strong>Define conversion:</strong> Choose destination, duration, pages/screens, or events</li>
+                        <li><strong>View reports:</strong> Go to Reports → Conversions → Goals</li>
+                        <li><strong>Track by source:</strong> See which traffic sources convert best</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Common Conversion Goals:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li>Purchase completion</li>
+                        <li>Newsletter signup</li>
+                        <li>Free trial signup</li>
+                        <li>Contact form submission</li>
+                        <li>Download of resources</li>
+                    </ul>
+                `
+            },
+            churn: {
+                title: "📉 How to Track Churn Rate",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Churn Rate?</h3>
+                    <p class="mb-4">The percentage of customers who stop using your service over a given period.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">Churn Rate = (Customers Lost ÷ Total Customers at Start) × 100</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track this:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Track subscription cancellations:</strong> Set up "subscription_cancelled" event in GA4</li>
+                        <li><strong>Monitor user activity:</strong> Go to Reports → Engagement → Retention</li>
+                        <li><strong>Calculate monthly:</strong> Count users who were active last month but not this month</li>
+                        <li><strong>Use cohort analysis:</strong> See retention rates by user acquisition date</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• Customers at start of month: 1,000</p>
+                        <p>• Customers lost during month: 50</p>
+                        <p><strong>Churn Rate = (50 ÷ 1,000) × 100 = 5%</strong></p>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Industry Benchmarks:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>SaaS:</strong> 5-7% monthly churn is good</li>
+                        <li><strong>E-commerce:</strong> 2-5% monthly churn is good</li>
+                        <li><strong>Mobile apps:</strong> 3-5% monthly churn is good</li>
+                    </ul>
+                `
+            },
+            retention: {
+                title: "🔄 How to Track Retention Rate",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Retention Rate?</h3>
+                    <p class="mb-4">The percentage of customers who continue using your service over time.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">Retention Rate = (Customers Retained ÷ Total Customers) × 100</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Engagement → Retention</strong></li>
+                        <li><strong>View cohort analysis:</strong> See how user groups retain over time</li>
+                        <li><strong>Track by acquisition date:</strong> See retention by when users first visited</li>
+                        <li><strong>Monitor by traffic source:</strong> See which channels bring the most retained users</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Retention Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Day 1 retention:</strong> Users who return the next day</li>
+                        <li><strong>Day 7 retention:</strong> Users who return within a week</li>
+                        <li><strong>Day 30 retention:</strong> Users who return within a month</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• Users who signed up: 1,000</p>
+                        <p>• Users still active after 30 days: 834</p>
+                        <p><strong>30-day Retention Rate = (834 ÷ 1,000) × 100 = 83.4%</strong></p>
+                    </div>
+                `
+            },
+            'organic-search': {
+                title: "🔍 How to Track Organic Search Traffic",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Organic Search?</h3>
+                    <p class="mb-4">Traffic that comes from search engines (Google, Bing, etc.) when people find your website through unpaid search results.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Acquisition → Traffic acquisition</strong></li>
+                        <li><strong>Look for "Organic search"</strong> in the source/medium breakdown</li>
+                        <li><strong>View keywords:</strong> Go to Reports → Acquisition → Google Ads → Search queries</li>
+                        <li><strong>Track performance:</strong> See which keywords bring the most valuable traffic</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Metrics to Track:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Organic traffic volume:</strong> Number of visitors from search</li>
+                        <li><strong>Top keywords:</strong> Which search terms bring traffic</li>
+                        <li><strong>Conversion rate:</strong> How many organic visitors convert</li>
+                        <li><strong>Average position:</strong> Where you rank in search results</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Improve Organic Search:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Create high-quality, relevant content</li>
+                        <li>Optimize your website for search engines (SEO)</li>
+                        <li>Build backlinks from reputable websites</li>
+                        <li>Use relevant keywords in your content</li>
+                    </ul>
+                `
+            },
+            'social-media': {
+                title: "📱 How to Track Social Media Traffic",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Social Media Traffic?</h3>
+                    <p class="mb-4">Visitors who come to your website from social media platforms like Facebook, Twitter, LinkedIn, Instagram, etc.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Acquisition → Traffic acquisition</strong></li>
+                        <li><strong>Look for social media sources:</strong> Facebook, Twitter, LinkedIn, etc.</li>
+                        <li><strong>View detailed breakdown:</strong> Click on "Social" to see all platforms</li>
+                        <li><strong>Track engagement:</strong> See which posts drive the most traffic</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Metrics to Track:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Traffic by platform:</strong> Which social networks work best</li>
+                        <li><strong>Engagement rate:</strong> Likes, shares, comments</li>
+                        <li><strong>Conversion rate:</strong> How many social visitors convert</li>
+                        <li><strong>Best performing content:</strong> Which posts drive traffic</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Improve Social Media Traffic:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Post consistently and at optimal times</li>
+                        <li>Create shareable, valuable content</li>
+                        <li>Engage with your audience</li>
+                        <li>Use relevant hashtags</li>
+                        <li>Run social media ads</li>
+                    </ul>
+                `
+            },
+            'paid-ads': {
+                title: "💰 How to Track Paid Advertising Traffic",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Paid Ads Traffic?</h3>
+                    <p class="mb-4">Visitors who come to your website from paid advertising campaigns (Google Ads, Facebook Ads, etc.).</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Acquisition → Traffic acquisition</strong></li>
+                        <li><strong>Look for "Paid search" and "Paid social"</strong> in the source/medium</li>
+                        <li><strong>Connect Google Ads:</strong> Link your Google Ads account for detailed data</li>
+                        <li><strong>Track campaigns:</strong> See which ads perform best</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Metrics to Track:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Cost per click (CPC):</strong> How much you pay for each click</li>
+                        <li><strong>Click-through rate (CTR):</strong> Percentage of people who click your ad</li>
+                        <li><strong>Conversion rate:</strong> How many ad clicks convert to customers</li>
+                        <li><strong>Return on ad spend (ROAS):</strong> Revenue generated per dollar spent</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Optimize Paid Ads:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Test different ad copy and images</li>
+                        <li>Target the right audience</li>
+                        <li>Use negative keywords to avoid irrelevant clicks</li>
+                        <li>Optimize landing pages for conversions</li>
+                        <li>Track and adjust bids based on performance</li>
+                    </ul>
+                `
+            },
+            'referrals': {
+                title: "🤝 How to Track Referral Traffic",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Referral Traffic?</h3>
+                    <p class="mb-4">Visitors who come to your website from other websites that link to you (not search engines or social media).</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Acquisition → Traffic acquisition</strong></li>
+                        <li><strong>Look for "Referral"</strong> in the source/medium breakdown</li>
+                        <li><strong>View referring sites:</strong> See which websites send you traffic</li>
+                        <li><strong>Track link performance:</strong> See which links are most effective</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Metrics to Track:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Top referring sites:</strong> Which websites send the most traffic</li>
+                        <li><strong>Referral quality:</strong> How engaged are referral visitors</li>
+                        <li><strong>Conversion rate:</strong> How many referrals become customers</li>
+                        <li><strong>Link value:</strong> Which links drive the most valuable traffic</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Increase Referral Traffic:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Create linkable content (guides, tools, resources)</li>
+                        <li>Reach out to industry websites for partnerships</li>
+                        <li>Guest post on relevant blogs</li>
+                        <li>Create shareable infographics or tools</li>
+                        <li>Build relationships with influencers</li>
+                    </ul>
+                `
+            },
+            'direct-traffic': {
+                title: "🔗 How to Track Direct Traffic",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Direct Traffic?</h3>
+                    <p class="mb-4">Visitors who type your website URL directly into their browser or use bookmarks to visit your site.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Acquisition → Traffic acquisition</strong></li>
+                        <li><strong>Look for "Direct"</strong> in the source/medium breakdown</li>
+                        <li><strong>View landing pages:</strong> See which pages direct visitors land on</li>
+                        <li><strong>Track user behavior:</strong> How do direct visitors behave on your site</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Metrics to Track:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Direct traffic volume:</strong> Number of direct visitors</li>
+                        <li><strong>Return visitor rate:</strong> How many are repeat visitors</li>
+                        <li><strong>Engagement:</strong> Time on site, pages per session</li>
+                        <li><strong>Conversion rate:</strong> How many direct visitors convert</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">What Direct Traffic Tells You:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Brand awareness:</strong> People know your brand name</li>
+                        <li><strong>Customer loyalty:</strong> Repeat visitors who bookmark your site</li>
+                        <li><strong>Offline marketing:</strong> Traffic from business cards, print ads</li>
+                        <li><strong>Email marketing:</strong> Links in emails (sometimes shows as direct)</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Increase Direct Traffic:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Build strong brand recognition</li>
+                        <li>Create memorable, easy-to-remember URLs</li>
+                        <li>Use offline marketing (business cards, flyers)</li>
+                        <li>Encourage bookmarking</li>
+                        <li>Build email lists for direct communication</li>
+                    </ul>
+                `
+            },
+            'revenue-growth': {
+                title: "📈 How to Track Revenue Growth",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Revenue Growth?</h3>
+                    <p class="mb-4">The percentage increase in your revenue over a specific period, showing how your business is growing financially.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">Revenue Growth = ((Current Period Revenue - Previous Period Revenue) ÷ Previous Period Revenue) × 100</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Monetization → E-commerce overview</strong></li>
+                        <li><strong>Set up Enhanced E-commerce:</strong> Enable e-commerce tracking in GA4</li>
+                        <li><strong>Track transactions:</strong> Use the 'purchase' event with revenue data</li>
+                        <li><strong>View revenue trends:</strong> Use date range comparisons</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Revenue Metrics to Track:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Monthly Recurring Revenue (MRR):</strong> Predictable monthly income</li>
+                        <li><strong>Annual Recurring Revenue (ARR):</strong> MRR × 12</li>
+                        <li><strong>Revenue per customer:</strong> Total revenue ÷ number of customers</li>
+                        <li><strong>Revenue growth rate:</strong> Month-over-month percentage change</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• January revenue: $25,000</p>
+                        <p>• February revenue: $30,000</p>
+                        <p><strong>Growth Rate = (($30,000 - $25,000) ÷ $25,000) × 100 = 20%</strong></p>
+                    </div>
+                `
+            },
+            'website-visitors': {
+                title: "👥 How to Track Website Visitors",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What are Website Visitors?</h3>
+                    <p class="mb-4">The total number of unique people who visit your website during a specific time period.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Engagement → Overview</strong></li>
+                        <li><strong>View "Total users":</strong> This shows unique visitors</li>
+                        <li><strong>Check "New users":</strong> First-time visitors</li>
+                        <li><strong>Monitor "Returning users":</strong> Repeat visitors</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Visitor Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Total users:</strong> All unique visitors</li>
+                        <li><strong>New users:</strong> First-time visitors</li>
+                        <li><strong>Sessions:</strong> Individual visits (one user can have multiple sessions)</li>
+                        <li><strong>Page views:</strong> Total pages viewed</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Increase Website Visitors:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Improve SEO for organic search traffic</li>
+                        <li>Create valuable content that gets shared</li>
+                        <li>Use social media marketing</li>
+                        <li>Run paid advertising campaigns</li>
+                        <li>Build partnerships and backlinks</li>
+                    </ul>
+                `
+            },
+            'sign-ups': {
+                title: "📝 How to Track Sign-ups",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What are Sign-ups?</h3>
+                    <p class="mb-4">Users who create an account or register for your service, representing the first step in your conversion funnel.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Set up custom events:</strong> Track 'sign_up' events</li>
+                        <li><strong>Go to Reports → Engagement → Events</strong></li>
+                        <li><strong>Look for 'sign_up' events:</strong> Count of registration events</li>
+                        <li><strong>Track conversion rate:</strong> Sign-ups ÷ Total visitors</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Sign-up Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Sign-up rate:</strong> Sign-ups ÷ Total visitors</li>
+                        <li><strong>Sign-up sources:</strong> Which channels bring the most sign-ups</li>
+                        <li><strong>Sign-up completion rate:</strong> Completed sign-ups ÷ Started sign-ups</li>
+                        <li><strong>Time to sign-up:</strong> How long visitors take to register</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Improve Sign-up Rates:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Simplify the sign-up form</li>
+                        <li>Add social login options</li>
+                        <li>Show clear value proposition</li>
+                        <li>Use progressive profiling</li>
+                        <li>Add testimonials and trust signals</li>
+                    </ul>
+                `
+            },
+            'trial-users': {
+                title: "🆓 How to Track Trial Users",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What are Trial Users?</h3>
+                    <p class="mb-4">Users who start a free trial of your product or service, representing qualified leads who are testing your offering.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Set up custom events:</strong> Track 'trial_started' events</li>
+                        <li><strong>Go to Reports → Engagement → Events</strong></li>
+                        <li><strong>Look for 'trial_started' events:</strong> Count of trial activations</li>
+                        <li><strong>Track trial conversion:</strong> Trials ÷ Sign-ups</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Trial Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Trial conversion rate:</strong> Trials ÷ Sign-ups</li>
+                        <li><strong>Trial completion rate:</strong> Completed trials ÷ Started trials</li>
+                        <li><strong>Trial-to-paid conversion:</strong> Paid customers ÷ Trial users</li>
+                        <li><strong>Trial engagement:</strong> How actively users use the trial</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Improve Trial Conversion:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Provide onboarding guidance</li>
+                        <li>Send helpful email sequences</li>
+                        <li>Offer support during trial</li>
+                        <li>Show clear value quickly</li>
+                        <li>Set up trial-to-paid reminders</li>
+                    </ul>
+                `
+            },
+            'paid-customers': {
+                title: "💳 How to Track Paid Customers",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What are Paid Customers?</h3>
+                    <p class="mb-4">Users who have made a purchase or subscription payment, representing your actual revenue-generating customers.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Set up Enhanced E-commerce:</strong> Enable purchase tracking</li>
+                        <li><strong>Go to Reports → Monetization → E-commerce overview</strong></li>
+                        <li><strong>Track 'purchase' events:</strong> Count of completed purchases</li>
+                        <li><strong>Monitor revenue:</strong> Total revenue from purchases</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Customer Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Customer acquisition cost (CAC):</strong> Marketing spend ÷ New customers</li>
+                        <li><strong>Customer lifetime value (LTV):</strong> Average revenue per customer</li>
+                        <li><strong>Conversion rate:</strong> Paid customers ÷ Total visitors</li>
+                        <li><strong>Average order value:</strong> Total revenue ÷ Number of orders</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Increase Paid Customers:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Optimize pricing strategy</li>
+                        <li>Improve product-market fit</li>
+                        <li>Enhance customer experience</li>
+                        <li>Implement referral programs</li>
+                        <li>Use retargeting campaigns</li>
+                    </ul>
+                `
+            },
+            'retained-customers': {
+                title: "🔄 How to Track Retained Customers",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What are Retained Customers?</h3>
+                    <p class="mb-4">Customers who continue using your service over time, showing customer loyalty and product stickiness.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Engagement → Retention</strong></li>
+                        <li><strong>View cohort analysis:</strong> See retention by acquisition date</li>
+                        <li><strong>Track returning users:</strong> Users who come back after first visit</li>
+                        <li><strong>Monitor engagement:</strong> How actively retained users engage</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Retention Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Retention rate:</strong> Retained customers ÷ Total customers</li>
+                        <li><strong>Cohort retention:</strong> Retention by user groups</li>
+                        <li><strong>Churn rate:</strong> Customers lost ÷ Total customers</li>
+                        <li><strong>Customer lifetime:</strong> How long customers stay</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Improve Customer Retention:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Provide excellent customer support</li>
+                        <li>Continuously improve your product</li>
+                        <li>Build a community around your brand</li>
+                        <li>Offer loyalty programs</li>
+                        <li>Regularly communicate with customers</li>
+                    </ul>
+                `
+            },
+            'feature-usage': {
+                title: "⚡ How to Track Feature Usage",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Feature Usage?</h3>
+                    <p class="mb-4">The percentage of users who actively use specific features of your product, helping you understand which features are most valuable.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Set up custom events:</strong> Track specific feature interactions</li>
+                        <li><strong>Go to Reports → Engagement → Events</strong></li>
+                        <li><strong>Create event parameters:</strong> Add feature names and usage data</li>
+                        <li><strong>Use Enhanced Measurement:</strong> Automatically track clicks, scrolls, and interactions</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Feature Usage Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Feature adoption rate:</strong> Users who use a feature ÷ Total users</li>
+                        <li><strong>Feature frequency:</strong> How often users use each feature</li>
+                        <li><strong>Feature stickiness:</strong> Daily active users of a feature</li>
+                        <li><strong>Feature completion rate:</strong> Users who complete feature workflows</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Improve Feature Usage:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Add in-app tutorials and onboarding</li>
+                        <li>Send targeted feature announcements</li>
+                        <li>Improve feature discoverability</li>
+                        <li>Gather user feedback on features</li>
+                        <li>Remove or redesign unused features</li>
+                    </ul>
+                `
+            },
+            'user-engagement': {
+                title: "👤 How to Track User Engagement",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is User Engagement?</h3>
+                    <p class="mb-4">How actively and frequently users interact with your product, measured by sessions, time spent, and return visits.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Engagement → Overview</strong></li>
+                        <li><strong>View "Average engagement time":</strong> Time users spend actively on your site</li>
+                        <li><strong>Check "Engaged sessions":</strong> Sessions with meaningful interaction</li>
+                        <li><strong>Monitor "Engagement rate":</strong> Percentage of engaged sessions</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Engagement Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Sessions per user:</strong> How often users return</li>
+                        <li><strong>Average session duration:</strong> Time spent per visit</li>
+                        <li><strong>Pages per session:</strong> How many pages users view</li>
+                        <li><strong>Bounce rate:</strong> Single-page sessions</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Improve User Engagement:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Create compelling, valuable content</li>
+                        <li>Improve page load speeds</li>
+                        <li>Add interactive elements</li>
+                        <li>Personalize user experience</li>
+                        <li>Implement gamification features</li>
+                    </ul>
+                `
+            },
+            'cohort-retention': {
+                title: "📊 How to Track Cohort Retention",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Cohort Retention?</h3>
+                    <p class="mb-4">The percentage of users from a specific group (cohort) who continue using your product over time, showing long-term user loyalty.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Go to Reports → Engagement → Retention</strong></li>
+                        <li><strong>View cohort analysis:</strong> See retention by acquisition date</li>
+                        <li><strong>Set cohort size:</strong> Choose daily, weekly, or monthly cohorts</li>
+                        <li><strong>Track retention periods:</strong> See retention at 1, 7, 14, 30 days</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Key Cohort Metrics:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Day 1 retention:</strong> Users who return the next day</li>
+                        <li><strong>Week 1 retention:</strong> Users who return within a week</li>
+                        <li><strong>Month 1 retention:</strong> Users who return within a month</li>
+                        <li><strong>Cohort size:</strong> Number of users in each cohort</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to Improve Cohort Retention:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Improve onboarding experience</li>
+                        <li>Send timely re-engagement emails</li>
+                        <li>Add value in early user experience</li>
+                        <li>Create habit-forming features</li>
+                        <li>Monitor and address churn signals</li>
+                    </ul>
+                `
+            }
+        };
+
+        function showInstructions(metric) {
+            const modal = document.getElementById('instructionModal');
+            const title = document.getElementById('modalTitle');
+            const content = document.getElementById('modalContent');
+            
+            title.textContent = instructions[metric].title;
+            content.innerHTML = instructions[metric].content;
+            
+            modal.style.display = 'block';
+        }
+
+        function closeInstructions() {
+            document.getElementById('instructionModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('instructionModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Load charts when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRevenueChart();
+            loadAcquisitionChart();
+        });
+
+        // Load revenue growth chart
+        function loadRevenueChart() {
+            const ctx = document.getElementById('revenueChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Monthly Revenue',
+                        data: [28000, 32000, 29000, 35000, 38000, 42000, 45000, 48000, 44000, 52000, 58000, 62000],
+                        borderColor: '#3B82F6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        borderWidth: 3,
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + (value / 1000) + 'k';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Load acquisition channels chart
+        function loadAcquisitionChart() {
+            const ctx = document.getElementById('acquisitionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Organic Search', 'Social Media', 'Paid Ads', 'Referrals', 'Direct'],
+                    datasets: [{
+                        label: 'Traffic Percentage',
+                        data: [35, 25, 20, 12, 8],
+                        backgroundColor: [
+                            '#3B82F6',
+                            '#10B981',
+                            '#F59E0B',
+                            '#8B5CF6',
+                            '#EF4444'
+                        ],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed.y + '%';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 40,
+                            ticks: {
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                maxRotation: 45
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
