@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Startup Metrics Tutorial - StartupTracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -59,6 +59,9 @@
                 <div class="bg-blue-100 text-blue-800 px-4 py-2 rounded-lg text-sm mt-4 inline-block">
                     📚 Educational Guide - Click on any metric card to learn how to track it
                 </div>
+                <div class="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm mt-2 inline-block">
+                    📊 Last updated: <span id="lastUpdated"></span>
+                </div>
             </div>
         </div>
     </header>
@@ -76,7 +79,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">Lifetime Value (LTV)</p>
-                            <p class="text-3xl font-bold">$2,847</p>
+                            <p class="text-3xl font-bold">$320</p>
                             <p class="text-sm mt-2">Click to learn how to calculate</p>
                         </div>
                         <div class="text-4xl opacity-80">💰</div>
@@ -100,7 +103,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">LTV:CAC Ratio</p>
-                            <p class="text-3xl font-bold">22.4</p>
+                            <p class="text-3xl font-bold">2.52</p>
                             <p class="text-sm mt-2">Click to learn the formula</p>
                         </div>
                         <div class="text-4xl opacity-80">⚖️</div>
@@ -111,8 +114,8 @@
                 <div class="metric-card text-white p-6 rounded-xl shadow-lg" onclick="showInstructions('mrr')">
                     <div class="flex items-center justify-between">
                         <div>
-                            <p class="text-sm opacity-90">Monthly Recurring Revenue (MRR)</p>
-                            <p class="text-3xl font-bold">$45,200</p>
+                            <p class="text-sm opacity-90">Average Revenue Per User (ARPU)</p>
+                            <p class="text-3xl font-bold">$20.83</p>
                             <p class="text-sm mt-2">Click to learn how to track</p>
                         </div>
                         <div class="text-4xl opacity-80">📊</div>
@@ -132,7 +135,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-lg font-semibold text-gray-900">Conversion Rate</h3>
-                            <p class="text-2xl font-bold text-blue-600 mt-2">12.5%</p>
+                            <p class="text-2xl font-bold text-blue-600 mt-2">1.25%</p>
                             <p class="text-sm text-gray-600 mt-1">Click to learn how to track</p>
                         </div>
                         <div class="text-3xl">📈</div>
@@ -156,7 +159,7 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <h3 class="text-lg font-semibold text-gray-900">Retention Rate</h3>
-                            <p class="text-2xl font-bold text-green-600 mt-2">83.4%</p>
+                            <p class="text-2xl font-bold text-green-600 mt-2">94.8%</p>
                             <p class="text-sm text-gray-600 mt-1">Click to learn how to track</p>
                         </div>
                         <div class="text-3xl">🔄</div>
@@ -198,7 +201,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="font-semibold text-blue-800">Organic Search</h3>
-                                    <p class="text-sm text-blue-600">35% of traffic</p>
+                                    <p class="text-sm text-blue-600">45% of traffic</p>
                                 </div>
                                 <div class="text-blue-400">🔍</div>
                             </div>
@@ -218,7 +221,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="font-semibold text-yellow-800">Paid Ads</h3>
-                                    <p class="text-sm text-yellow-600">20% of traffic</p>
+                                    <p class="text-sm text-yellow-600">15% of traffic</p>
                                 </div>
                                 <div class="text-yellow-400">💰</div>
                             </div>
@@ -228,7 +231,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="font-semibold text-purple-800">Referrals</h3>
-                                    <p class="text-sm text-purple-600">12% of traffic</p>
+                                    <p class="text-sm text-purple-600">10% of traffic</p>
                                 </div>
                                 <div class="text-purple-400">🤝</div>
                             </div>
@@ -238,7 +241,7 @@
                             <div class="flex justify-between items-center">
                                 <div>
                                     <h3 class="font-semibold text-red-800">Direct Traffic</h3>
-                                    <p class="text-sm text-red-600">8% of traffic</p>
+                                    <p class="text-sm text-red-600">5% of traffic</p>
                                 </div>
                                 <div class="text-red-400">🔗</div>
                             </div>
@@ -287,7 +290,7 @@
                         <div class="bg-red-100 text-red-800 p-4 rounded-lg">
                             <div class="text-2xl font-bold">156</div>
                             <div class="text-sm">Retained (6mo)</div>
-                            <div class="text-xs text-gray-600">83.4%</div>
+                            <div class="text-xs text-gray-600">94.8%</div>
                         </div>
                     </div>
                 </div>
@@ -303,7 +306,7 @@
                                 <ul class="list-disc list-inside space-y-1">
                                     <li>Sign-up rate (10%) is above industry average (2-5%)</li>
                                     <li>Trial-to-paid conversion (50%) is excellent</li>
-                                    <li>Retention rate (83.4%) indicates strong product-market fit</li>
+                                    <li>Retention rate (94.8%) indicates strong product-market fit</li>
                                     <li>Focus on increasing website traffic to scale growth</li>
                                 </ul>
                             </div>
@@ -438,9 +441,9 @@
                         ✅ What's Working Well
                     </h3>
                     <ul class="space-y-2 text-green-700">
-                        <li>• High trial-to-paid conversion rate (50%)</li>
-                        <li>• Strong customer retention (83.4%)</li>
-                        <li>• Excellent LTV:CAC ratio (22.4:1)</li>
+                        <li>• High trial-to-paid conversion rate (50%) - Industry benchmark: 15-25%</li>
+                        <li>• Strong customer retention (94.8%) - Industry benchmark: 70-80%</li>
+                        <li>• Acceptable LTV:CAC ratio (2.52:1) - Industry benchmark: 3:1+ (needs improvement)</li>
                         <li>• Consistent revenue growth (+18.7%)</li>
                     </ul>
                 </div>
@@ -496,6 +499,20 @@
     </footer>
 
     <script>
+        // Update timestamp on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            const timestamp = now.toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZoneName: 'short'
+            });
+            document.getElementById('lastUpdated').textContent = timestamp;
+        });
+
         const instructions = {
             ltv: {
                 title: "💰 How to Calculate Customer Lifetime Value (LTV)",
@@ -518,10 +535,10 @@
                     
                     <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
-                        <p>• Average Order Value: $50</p>
-                        <p>• Purchase Frequency: 2 times per month</p>
-                        <p>• Customer Lifespan: 24 months</p>
-                        <p><strong>LTV = $50 × 2 × 24 = $2,400</strong></p>
+                        <p>• Monthly ARPU: $20.83</p>
+                        <p>• Gross Margin: 80%</p>
+                        <p>• Customer Lifespan: 19.2 months (1 ÷ 5.2% churn)</p>
+                        <p><strong>LTV = $20.83 × 0.80 × 19.2 = $320</strong></p>
                     </div>
                 `
             },
@@ -575,10 +592,10 @@
                     
                     <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
-                        <p>• LTV: $2,400</p>
-                        <p>• CAC: $100</p>
-                        <p><strong>LTV:CAC Ratio = $2,400 ÷ $100 = 24:1</strong></p>
-                        <p class="text-green-600 font-semibold mt-2">This is excellent! You're making 24x what you spend.</p>
+                        <p>• LTV: $320</p>
+                        <p>• CAC: $127</p>
+                        <p><strong>LTV:CAC Ratio = $320 ÷ $127 = 2.52:1</strong></p>
+                        <p class="text-yellow-600 font-semibold mt-2">This is acceptable but could be improved. Target 3:1+ for better unit economics.</p>
                     </div>
                 `
             },
@@ -704,8 +721,8 @@
                     <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
                         <p>• Users who signed up: 1,000</p>
-                        <p>• Users still active after 30 days: 834</p>
-                        <p><strong>30-day Retention Rate = (834 ÷ 1,000) × 100 = 83.4%</strong></p>
+                        <p>• Users still active after 30 days: 948</p>
+                        <p><strong>30-day Retention Rate = (948 ÷ 1,000) × 100 = 94.8%</strong></p>
                     </div>
                 `
             },
@@ -1246,7 +1263,7 @@
                     labels: ['Organic Search', 'Social Media', 'Paid Ads', 'Referrals', 'Direct'],
                     datasets: [{
                         label: 'Traffic Percentage',
-                        data: [35, 25, 20, 12, 8],
+                        data: [45, 25, 15, 10, 5],
                         backgroundColor: [
                             '#3B82F6',
                             '#10B981',
