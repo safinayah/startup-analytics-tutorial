@@ -33,15 +33,42 @@ class GA4Service:
         Returns:
             Dictionary with visitor data
         """
-        # This would connect to GA4 API in a real implementation
-        # For now, returning mock data that matches the dashboard
-        return {
-            'total_visitors': 12450,
-            'new_visitors': 8930,
-            'returning_visitors': 3520,
-            'period_days': days,
-            'date_range': f'Last {days} days'
-        }
+        try:
+            # Check if GA4 is properly configured
+            if not self.property_id:
+                return {
+                    "error": "GA4_PROPERTY_ID not configured",
+                    "message": "Please set your GA4 Property ID in environment variables",
+                    "fallback_data": {
+                        'total_visitors': 12450,
+                        'new_visitors': 8930,
+                        'returning_visitors': 3520,
+                        'period_days': days,
+                        'date_range': f'Last {days} days (Demo Data)'
+                    }
+                }
+            
+            # This would connect to GA4 API in a real implementation
+            # For now, returning mock data that matches the dashboard
+            return {
+                'total_visitors': 12450,
+                'new_visitors': 8930,
+                'returning_visitors': 3520,
+                'period_days': days,
+                'date_range': f'Last {days} days'
+            }
+        except Exception as e:
+            return {
+                "error": f"Failed to fetch visitor data: {str(e)}",
+                "message": "Please check your GA4 configuration and internet connection",
+                "fallback_data": {
+                    'total_visitors': 12450,
+                    'new_visitors': 8930,
+                    'returning_visitors': 3520,
+                    'period_days': days,
+                    'date_range': f'Last {days} days (Demo Data)'
+                }
+            }
     
     def get_conversion_funnel_data(self, days: int = 30) -> Dict:
         """

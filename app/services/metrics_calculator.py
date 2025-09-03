@@ -74,16 +74,20 @@ class MetricsCalculator:
         Args:
             method: "stripe" (industry standard) or "traditional"
         """
-        arpu = self.data["core_metrics"]["monthly_arpu"]
-        churn = self.data["core_metrics"]["monthly_churn_rate"]
-        gross_margin = self.data["core_metrics"]["gross_margin"]
+        # Extract core metrics from data file
+        arpu = self.data["core_metrics"]["monthly_arpu"]  # Average Revenue Per User per month
+        churn = self.data["core_metrics"]["monthly_churn_rate"]  # Monthly churn rate (decimal)
+        gross_margin = self.data["core_metrics"]["gross_margin"]  # Gross margin percentage
         
         if method == "stripe":
             # Industry standard: LTV = ARPU ÷ Churn Rate
+            # This represents total revenue expected from a customer over their lifetime
+            # Example: $20.83 ÷ 0.052 = $400.58
             ltv = arpu / churn
             method_name = "Stripe Method (Industry Standard)"
         else:
             # Traditional: LTV = ARPU × Gross Margin ÷ Churn Rate
+            # This accounts for profit margins, not just revenue
             ltv = arpu * gross_margin / churn
             method_name = "Traditional Method (Net Profit)"
         
@@ -140,9 +144,13 @@ class MetricsCalculator:
         """
         Calculate Monthly Recurring Revenue
         """
-        active_users = self.data["core_metrics"]["monthly_active_users"]
-        arpu = self.data["core_metrics"]["monthly_arpu"]
+        # Get number of active paying customers
+        active_users = self.data["core_metrics"]["monthly_active_users"]  # 2,400 customers
+        # Get average revenue per user per month
+        arpu = self.data["core_metrics"]["monthly_arpu"]  # $20.83 per customer per month
         
+        # MRR = Total Active Users × Average Revenue Per User
+        # Example: 2,400 × $20.83 = $49,992
         mrr = active_users * arpu
         
         return {

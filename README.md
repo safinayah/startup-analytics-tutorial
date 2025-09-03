@@ -144,6 +144,7 @@ startup-analytics-tutorial/
 - **[GA_METRICS_GUIDE.md](GA_METRICS_GUIDE.md)**: Comprehensive guide to Google Analytics metrics
 - **[GA4_INTEGRATION_GUIDE.md](GA4_INTEGRATION_GUIDE.md)**: Step-by-step guide to connect your own GA4 data
 - **[BUILD_YOUR_OWN_DASHBOARD.md](BUILD_YOUR_OWN_DASHBOARD.md)**: How to export GA data and build custom dashboards
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)**: Common issues and solutions
 - **[LINKEDIN_POSTS.md](LINKEDIN_POSTS.md)**: Ready-to-use LinkedIn content for promotion
 - **[SLIDE_DECK_CONTENT.md](SLIDE_DECK_CONTENT.md)**: Professional presentation content
 
