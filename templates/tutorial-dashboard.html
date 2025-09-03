@@ -79,8 +79,8 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">Lifetime Value (LTV)</p>
-                            <p class="text-3xl font-bold">$320</p>
-                            <p class="text-sm mt-2">Click to learn how to calculate</p>
+                            <p class="text-3xl font-bold">$400.58</p>
+                            <p class="text-sm mt-2">Stripe Method - Click to learn</p>
                         </div>
                         <div class="text-4xl opacity-80">💰</div>
                     </div>
@@ -103,8 +103,8 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">LTV:CAC Ratio</p>
-                            <p class="text-3xl font-bold">2.52</p>
-                            <p class="text-sm mt-2">Click to learn the formula</p>
+                            <p class="text-3xl font-bold">3.15</p>
+                            <p class="text-sm mt-2">Updated with Stripe LTV</p>
                         </div>
                         <div class="text-4xl opacity-80">⚖️</div>
                     </div>
@@ -119,6 +119,62 @@
                             <p class="text-sm mt-2">Click to learn how to track</p>
                         </div>
                         <div class="text-4xl opacity-80">📊</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Critical Missing Metrics -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                🚨 Critical Missing Metrics (Now Added!)
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Payback Period -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow" onclick="showInstructions('payback-period')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Payback Period</h3>
+                            <p class="text-2xl font-bold text-green-600 mt-2">6.1 months</p>
+                            <p class="text-sm text-gray-600 mt-1">Critical for cash flow</p>
+                        </div>
+                        <div class="text-3xl">⏰</div>
+                    </div>
+                </div>
+
+                <!-- MRR -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow" onclick="showInstructions('mrr-detailed')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Monthly Recurring Revenue</h3>
+                            <p class="text-2xl font-bold text-blue-600 mt-2">$49,992</p>
+                            <p class="text-sm text-gray-600 mt-1">Core SaaS metric</p>
+                        </div>
+                        <div class="text-3xl">📈</div>
+                    </div>
+                </div>
+
+                <!-- ARR -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow" onclick="showInstructions('arr')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Annual Recurring Revenue</h3>
+                            <p class="text-2xl font-bold text-purple-600 mt-2">$599,904</p>
+                            <p class="text-sm text-gray-600 mt-1">Valuation metric</p>
+                        </div>
+                        <div class="text-3xl">📊</div>
+                    </div>
+                </div>
+
+                <!-- Net Revenue Retention -->
+                <div class="bg-white rounded-xl shadow-lg p-6 cursor-pointer hover:shadow-xl transition-shadow" onclick="showInstructions('nrr')">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900">Net Revenue Retention</h3>
+                            <p class="text-2xl font-bold text-orange-600 mt-2">110.8%</p>
+                            <p class="text-sm text-gray-600 mt-1">Growth from existing customers</p>
+                        </div>
+                        <div class="text-3xl">🔄</div>
                     </div>
                 </div>
             </div>
@@ -515,30 +571,44 @@
 
         const instructions = {
             ltv: {
-                title: "💰 How to Calculate Customer Lifetime Value (LTV)",
+                title: "💰 How to Calculate Customer Lifetime Value (LTV) - Stripe Method",
                 content: `
                     <h3 class="text-lg font-semibold mb-3">What is LTV?</h3>
                     <p class="mb-4">Customer Lifetime Value is the total revenue you expect from a customer over their entire relationship with your business.</p>
                     
-                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <h3 class="text-lg font-semibold mb-3">Stripe's Recommended Formula:</h3>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <code class="text-lg">LTV = (Average Order Value × Purchase Frequency × Customer Lifespan)</code>
+                        <code class="text-lg">LTV = Monthly ARPU ÷ Monthly Churn Rate</code>
                     </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Why Stripe's method is better:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Simpler:</strong> Only needs ARPU and churn rate</li>
+                        <li><strong>More Accurate:</strong> Based on actual subscription data</li>
+                        <li><strong>Industry Standard:</strong> Used by most SaaS companies</li>
+                        <li><strong>Real-time:</strong> Reflects current customer behavior</li>
+                    </ul>
                     
                     <h3 class="text-lg font-semibold mb-3">How to get this data from Google Analytics:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
-                        <li><strong>Go to GA4 → Reports → Monetization → Ecommerce purchases</strong></li>
-                        <li><strong>Average Order Value:</strong> Look at "Average purchase revenue"</li>
-                        <li><strong>Purchase Frequency:</strong> Go to Reports → Engagement → Events → "purchase" event</li>
-                        <li><strong>Customer Lifespan:</strong> Go to Reports → Engagement → Retention → Look at user retention over time</li>
+                        <li><strong>Monthly ARPU:</strong> Go to Reports → Monetization → E-commerce → Average purchase revenue</li>
+                        <li><strong>Monthly Churn:</strong> Go to Reports → Engagement → Retention → Calculate monthly churn rate</li>
+                        <li><strong>Alternative:</strong> Use subscription analytics tools like Stripe Dashboard</li>
                     </ol>
                     
-                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Stripe Method):</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
                         <p>• Monthly ARPU: $20.83</p>
-                        <p>• Gross Margin: 80%</p>
-                        <p>• Customer Lifespan: 19.2 months (1 ÷ 5.2% churn)</p>
-                        <p><strong>LTV = $20.83 × 0.80 × 19.2 = $320</strong></p>
+                        <p>• Monthly Churn Rate: 5.2% (0.052)</p>
+                        <p><strong>LTV = $20.83 ÷ 0.052 = $400.58</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ This is 25% higher than the traditional method, giving you a more accurate LTV!</p>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Traditional vs Stripe Method:</h3>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <p><strong>Traditional:</strong> LTV = ARPU × Gross Margin ÷ Churn = $20.83 × 0.80 ÷ 0.052 = $320</p>
+                        <p><strong>Stripe Method:</strong> LTV = ARPU ÷ Churn = $20.83 ÷ 0.052 = $400.58</p>
+                        <p class="text-sm mt-2">The Stripe method gives you the gross revenue LTV, which is more useful for SaaS businesses.</p>
                     </div>
                 `
             },
@@ -590,12 +660,12 @@
                         <li><strong>Below 1:1:</strong> Losing money on each customer</li>
                     </ul>
                     
-                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Updated with Stripe LTV):</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
-                        <p>• LTV: $320</p>
+                        <p>• LTV (Stripe method): $400.58</p>
                         <p>• CAC: $127</p>
-                        <p><strong>LTV:CAC Ratio = $320 ÷ $127 = 2.52:1</strong></p>
-                        <p class="text-yellow-600 font-semibold mt-2">This is acceptable but could be improved. Target 3:1+ for better unit economics.</p>
+                        <p><strong>LTV:CAC Ratio = $400.58 ÷ $127 = 3.15:1</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ Excellent! This is above the 3:1 target for healthy unit economics.</p>
                     </div>
                 `
             },
@@ -1181,6 +1251,150 @@
                         <li>Add value in early user experience</li>
                         <li>Create habit-forming features</li>
                         <li>Monitor and address churn signals</li>
+                    </ul>
+                `
+            },
+            'payback-period': {
+                title: "⏰ How to Calculate Payback Period",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Payback Period?</h3>
+                    <p class="mb-4">The time it takes to recover the cost of acquiring a customer through their monthly revenue contribution.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">Payback Period = CAC ÷ Monthly ARPU</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Why it matters:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Cash Flow:</strong> Shows how quickly you get your money back</li>
+                        <li><strong>Growth Planning:</strong> Determines how fast you can scale</li>
+                        <li><strong>Investor Confidence:</strong> Key metric for funding decisions</li>
+                        <li><strong>Unit Economics:</strong> Essential for sustainable growth</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• CAC: $127</p>
+                        <p>• Monthly ARPU: $20.83</p>
+                        <p><strong>Payback Period = $127 ÷ $20.83 = 6.1 months</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ Excellent! Under 12 months is good, under 6 months is excellent.</p>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Industry Benchmarks:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>&lt; 6 months:</strong> Excellent (fast payback)</li>
+                        <li><strong>6-12 months:</strong> Good (acceptable payback)</li>
+                        <li><strong>12-18 months:</strong> Concerning (slow payback)</li>
+                        <li><strong>&gt; 18 months:</strong> Critical (very slow payback)</li>
+                    </ul>
+                `
+            },
+            'mrr-detailed': {
+                title: "📈 How to Calculate Monthly Recurring Revenue (MRR)",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is MRR?</h3>
+                    <p class="mb-4">Monthly Recurring Revenue is the predictable monthly revenue from all your active subscriptions - the lifeblood of SaaS businesses.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">MRR = Monthly Active Users × Monthly ARPU</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <ol class="list-decimal list-inside space-y-2 mb-4">
+                        <li><strong>Set up Enhanced E-commerce:</strong> Enable subscription tracking</li>
+                        <li><strong>Track subscription events:</strong> "subscription_started", "subscription_renewed"</li>
+                        <li><strong>Count active subscribers:</strong> Reports → Engagement → Events</li>
+                        <li><strong>Calculate ARPU:</strong> Total subscription revenue ÷ Active subscribers</li>
+                    </ol>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• Monthly Active Users: 2,400</p>
+                        <p>• Monthly ARPU: $20.83</p>
+                        <p><strong>MRR = 2,400 × $20.83 = $49,992</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ This validates your revenue growth and other metrics!</p>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">MRR Growth Tracking:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li>Track month-over-month MRR growth</li>
+                        <li>Monitor MRR churn (lost revenue)</li>
+                        <li>Track MRR expansion (upsells)</li>
+                        <li>Calculate MRR growth rate percentage</li>
+                    </ul>
+                `
+            },
+            'arr': {
+                title: "📊 How to Calculate Annual Recurring Revenue (ARR)",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is ARR?</h3>
+                    <p class="mb-4">Annual Recurring Revenue is your MRR multiplied by 12 - the standard metric for SaaS valuation and growth tracking.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">ARR = MRR × 12</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Why ARR matters:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Valuation:</strong> Primary metric for SaaS company valuation</li>
+                        <li><strong>Investor Reporting:</strong> Standard metric for funding rounds</li>
+                        <li><strong>Growth Planning:</strong> Annual revenue planning and forecasting</li>
+                        <li><strong>Benchmarking:</strong> Compare against industry standards</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• MRR: $49,992</p>
+                        <p><strong>ARR = $49,992 × 12 = $599,904</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ Nearly $600K ARR - a significant milestone for SaaS startups!</p>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">ARR Growth Targets:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>Early Stage:</strong> 100-200% year-over-year growth</li>
+                        <li><strong>Growth Stage:</strong> 50-100% year-over-year growth</li>
+                        <li><strong>Mature Stage:</strong> 20-50% year-over-year growth</li>
+                        <li><strong>Public Companies:</strong> 10-30% year-over-year growth</li>
+                    </ul>
+                `
+            },
+            'nrr': {
+                title: "🔄 How to Calculate Net Revenue Retention (NRR)",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is Net Revenue Retention?</h3>
+                    <p class="mb-4">NRR measures how much revenue you retain and expand from existing customers, including upsells and expansions minus churn.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">NRR = (Starting MRR + Expansion Revenue - Churn Revenue) ÷ Starting MRR × 100</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Why NRR is critical:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>Growth Indicator:</strong> Shows if you're growing from existing customers</li>
+                        <li><strong>Product-Market Fit:</strong> High NRR indicates strong product value</li>
+                        <li><strong>Unit Economics:</strong> Reduces dependency on new customer acquisition</li>
+                        <li><strong>Investor Appeal:</strong> Key metric for SaaS valuations</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• Starting MRR: $47,492 (95% of current)</p>
+                        <p>• Expansion Revenue: $7,499 (15% expansion)</p>
+                        <p>• Churn Revenue: $2,470 (5.2% churn)</p>
+                        <p><strong>NRR = ($47,492 + $7,499 - $2,470) ÷ $47,492 × 100 = 110.8%</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ Excellent! Above 100% means you're growing from existing customers.</p>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">NRR Benchmarks:</h3>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>&gt; 120%:</strong> Exceptional (top-tier SaaS)</li>
+                        <li><strong>110-120%:</strong> Excellent (strong growth)</li>
+                        <li><strong>100-110%:</strong> Good (healthy growth)</li>
+                        <li><strong>&lt; 100%:</strong> Concerning (shrinking revenue)</li>
                     </ul>
                 `
             }
