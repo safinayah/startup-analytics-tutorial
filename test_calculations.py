@@ -1,0 +1,285 @@
+#!/usr/bin/env python3
+"""
+Comprehensive Test Suite for Dynamic Calculations
+Tests all components before GitHub push
+"""
+
+import json
+import sys
+import os
+
+# Add app directory to path
+sys.path.append('app')
+
+def test_data_file():
+    """Test 1: Verify data file loads correctly"""
+    print('=== TEST 1: DATA FILE LOADING ===')
+    try:
+        with open('data/business_metrics.json', 'r') as f:
+            data = json.load(f)
+        print('✅ Data file loads successfully')
+        print(f'   Core metrics found: {len(data["core_metrics"])} fields')
+        print(f'   ARPU: ${data["core_metrics"]["monthly_arpu"]}')
+        print(f'   CAC: ${data["core_metrics"]["cac"]}')
+        print(f'   Churn: {data["core_metrics"]["monthly_churn_rate"] * 100}%')
+        return True
+    except Exception as e:
+        print(f'❌ Data file error: {e}')
+        return False
+
+def test_metrics_calculator():
+    """Test 2: Verify metrics calculator works"""
+    print('\n=== TEST 2: METRICS CALCULATOR ===')
+    try:
+        from services.metrics_calculator import MetricsCalculator
+        calculator = MetricsCalculator()
+        print('✅ MetricsCalculator imports and initializes successfully')
+        
+        # Test individual calculations
+        ltv = calculator.calculate_ltv("stripe")
+        print(f'✅ LTV calculation: ${ltv["value"]}')
+        
+        ratio = calculator.calculate_ltv_cac_ratio()
+        print(f'✅ LTV:CAC ratio: {ratio["ratio"]}:1')
+        
+        mrr = calculator.calculate_mrr()
+        print(f'✅ MRR calculation: ${mrr["value"]:,}')
+        
+        arr = calculator.calculate_arr()
+        print(f'✅ ARR calculation: ${arr["value"]:,}')
+        
+        payback = calculator.calculate_payback_period()
+        print(f'✅ Payback period: {payback["months"]} months')
+        
+        conversion = calculator.calculate_conversion_rate()
+        print(f'✅ Conversion rate: {conversion["rate"]}%')
+        
+        retention = calculator.calculate_retention_metrics()
+        print(f'✅ Retention rate: {retention["retention_rate"]}%')
+        
+        nrr = calculator.calculate_nrr()
+        print(f'✅ NRR calculation: {nrr["rate"]}%')
+        
+        return True
+    except Exception as e:
+        print(f'❌ MetricsCalculator error: {e}')
+        return False
+
+def test_calculation_accuracy():
+    """Test 3: Verify calculation accuracy"""
+    print('\n=== TEST 3: CALCULATION ACCURACY ===')
+    try:
+        from services.metrics_calculator import MetricsCalculator
+        calculator = MetricsCalculator()
+        
+        # Expected values (from our previous verification)
+        expected_values = {
+            'ltv': 400.58,
+            'ltv_cac_ratio': 3.15,
+            'mrr': 49992.0,
+            'arr': 599904.0,
+            'payback_period': 6.1,
+            'conversion_rate': 1.5,
+            'retention_rate': 94.8,
+            'nrr': 110.3
+        }
+        
+        # Test each calculation
+        ltv = calculator.calculate_ltv("stripe")
+        assert abs(ltv["value"] - expected_values['ltv']) < 0.01, f"LTV mismatch: {ltv['value']} vs {expected_values['ltv']}"
+        print('✅ LTV calculation accurate')
+        
+        ratio = calculator.calculate_ltv_cac_ratio()
+        assert abs(ratio["ratio"] - expected_values['ltv_cac_ratio']) < 0.01, f"LTV:CAC mismatch: {ratio['ratio']} vs {expected_values['ltv_cac_ratio']}"
+        print('✅ LTV:CAC ratio calculation accurate')
+        
+        mrr = calculator.calculate_mrr()
+        assert abs(mrr["value"] - expected_values['mrr']) < 1, f"MRR mismatch: {mrr['value']} vs {expected_values['mrr']}"
+        print('✅ MRR calculation accurate')
+        
+        arr = calculator.calculate_arr()
+        assert abs(arr["value"] - expected_values['arr']) < 1, f"ARR mismatch: {arr['value']} vs {expected_values['arr']}"
+        print('✅ ARR calculation accurate')
+        
+        payback = calculator.calculate_payback_period()
+        assert abs(payback["months"] - expected_values['payback_period']) < 0.1, f"Payback mismatch: {payback['months']} vs {expected_values['payback_period']}"
+        print('✅ Payback period calculation accurate')
+        
+        conversion = calculator.calculate_conversion_rate()
+        assert abs(conversion["rate"] - expected_values['conversion_rate']) < 0.1, f"Conversion mismatch: {conversion['rate']} vs {expected_values['conversion_rate']}"
+        print('✅ Conversion rate calculation accurate')
+        
+        retention = calculator.calculate_retention_metrics()
+        assert abs(retention["retention_rate"] - expected_values['retention_rate']) < 0.1, f"Retention mismatch: {retention['retention_rate']} vs {expected_values['retention_rate']}"
+        print('✅ Retention rate calculation accurate')
+        
+        nrr = calculator.calculate_nrr()
+        assert abs(nrr["rate"] - expected_values['nrr']) < 0.1, f"NRR mismatch: {nrr['rate']} vs {expected_values['nrr']}"
+        print('✅ NRR calculation accurate')
+        
+        return True
+    except Exception as e:
+        print(f'❌ Calculation accuracy error: {e}')
+        return False
+
+def test_flask_routes():
+    """Test 4: Verify Flask routes work"""
+    print('\n=== TEST 4: FLASK ROUTES ===')
+    try:
+        from app import create_app
+        app = create_app()
+        
+        with app.test_client() as client:
+            # Test main route
+            response = client.get('/')
+            assert response.status_code == 200, f"Main route failed: {response.status_code}"
+            print('✅ Main route works')
+            
+            # Test API routes
+            api_routes = [
+                '/api/metrics',
+                '/api/metrics/ltv',
+                '/api/metrics/ltv-cac-ratio',
+                '/api/metrics/mrr',
+                '/api/metrics/arr',
+                '/api/metrics/payback-period',
+                '/api/metrics/conversion-rate',
+                '/api/metrics/retention',
+                '/api/metrics/nrr',
+                '/api/data/raw'
+            ]
+            
+            for route in api_routes:
+                response = client.get(route)
+                assert response.status_code == 200, f"API route {route} failed: {response.status_code}"
+                data = response.get_json()
+                assert data["success"] == True, f"API route {route} returned error: {data.get('error', 'Unknown error')}"
+                print(f'✅ API route {route} works')
+        
+        return True
+    except Exception as e:
+        print(f'❌ Flask routes error: {e}')
+        return False
+
+def test_api_data_format():
+    """Test 5: Verify API returns correct data format"""
+    print('\n=== TEST 5: API DATA FORMAT ===')
+    try:
+        from app import create_app
+        app = create_app()
+        
+        with app.test_client() as client:
+            # Test all metrics endpoint
+            response = client.get('/api/metrics')
+            data = response.get_json()
+            
+            assert data["success"] == True, "API should return success=True"
+            assert "data" in data, "API should return data field"
+            
+            metrics = data["data"]
+            required_metrics = ['ltv', 'ltv_cac_ratio', 'mrr', 'arr', 'payback_period', 'conversion_rate', 'retention_metrics', 'nrr', 'raw_data']
+            
+            for metric in required_metrics:
+                assert metric in metrics, f"Missing metric: {metric}"
+                print(f'✅ Metric {metric} present in API response')
+            
+            # Test individual metric endpoints
+            ltv_response = client.get('/api/metrics/ltv')
+            ltv_data = ltv_response.get_json()
+            assert "value" in ltv_data["data"], "LTV should have value field"
+            assert "method" in ltv_data["data"], "LTV should have method field"
+            print('✅ LTV API returns correct format')
+            
+            ratio_response = client.get('/api/metrics/ltv-cac-ratio')
+            ratio_data = ratio_response.get_json()
+            assert "ratio" in ratio_data["data"], "LTV:CAC should have ratio field"
+            assert "assessment" in ratio_data["data"], "LTV:CAC should have assessment field"
+            print('✅ LTV:CAC ratio API returns correct format')
+        
+        return True
+    except Exception as e:
+        print(f'❌ API data format error: {e}')
+        return False
+
+def test_business_logic():
+    """Test 6: Verify business logic consistency"""
+    print('\n=== TEST 6: BUSINESS LOGIC CONSISTENCY ===')
+    try:
+        from services.metrics_calculator import MetricsCalculator
+        calculator = MetricsCalculator()
+        
+        # Test that MRR calculation is consistent
+        mrr = calculator.calculate_mrr()
+        active_users = calculator.data["core_metrics"]["monthly_active_users"]
+        arpu = calculator.data["core_metrics"]["monthly_arpu"]
+        expected_mrr = active_users * arpu
+        
+        assert abs(mrr["value"] - expected_mrr) < 0.01, f"MRR calculation inconsistent: {mrr['value']} vs {expected_mrr}"
+        print('✅ MRR calculation is consistent')
+        
+        # Test that ARR calculation is consistent
+        arr = calculator.calculate_arr()
+        expected_arr = mrr["value"] * 12
+        
+        assert abs(arr["value"] - expected_arr) < 0.01, f"ARR calculation inconsistent: {arr['value']} vs {expected_arr}"
+        print('✅ ARR calculation is consistent')
+        
+        # Test that LTV:CAC ratio is consistent
+        ltv = calculator.calculate_ltv("stripe")
+        ratio = calculator.calculate_ltv_cac_ratio()
+        cac = calculator.data["core_metrics"]["cac"]
+        expected_ratio = ltv["value"] / cac
+        
+        assert abs(ratio["ratio"] - expected_ratio) < 0.01, f"LTV:CAC ratio inconsistent: {ratio['ratio']} vs {expected_ratio}"
+        print('✅ LTV:CAC ratio calculation is consistent')
+        
+        # Test that retention rate is consistent with churn rate
+        retention = calculator.calculate_retention_metrics()
+        churn_rate = calculator.data["core_metrics"]["monthly_churn_rate"]
+        expected_retention = (1 - churn_rate) * 100
+        
+        assert abs(retention["retention_rate"] - expected_retention) < 0.1, f"Retention rate inconsistent: {retention['retention_rate']} vs {expected_retention}"
+        print('✅ Retention rate calculation is consistent')
+        
+        return True
+    except Exception as e:
+        print(f'❌ Business logic consistency error: {e}')
+        return False
+
+def main():
+    """Run all tests"""
+    print('🚀 COMPREHENSIVE CALCULATION TEST SUITE')
+    print('=' * 50)
+    
+    tests = [
+        test_data_file,
+        test_metrics_calculator,
+        test_calculation_accuracy,
+        test_flask_routes,
+        test_api_data_format,
+        test_business_logic
+    ]
+    
+    passed = 0
+    total = len(tests)
+    
+    for test in tests:
+        try:
+            if test():
+                passed += 1
+        except Exception as e:
+            print(f'❌ Test {test.__name__} failed with exception: {e}')
+    
+    print('\n' + '=' * 50)
+    print(f'TEST RESULTS: {passed}/{total} tests passed')
+    
+    if passed == total:
+        print('🎉 ALL TESTS PASSED! Ready for GitHub push.')
+        return True
+    else:
+        print('⚠️  SOME TESTS FAILED! Fix issues before GitHub push.')
+        return False
+
+if __name__ == "__main__":
+    success = main()
+    sys.exit(0 if success else 1)

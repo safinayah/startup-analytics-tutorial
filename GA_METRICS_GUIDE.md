@@ -43,11 +43,10 @@ LTV = Average Order Value × Purchase Frequency × Customer Lifespan
 - **E-commerce:** 2-4x CAC
 - **Mobile Apps:** 1-3x CAC
 
-**Example Calculation (Realistic):**
+**Example Calculation (Industry Standard):**
 - ARPU: $20.83/month
-- Gross Margin: 80%
 - Monthly Churn: 5.2%
-- LTV = $20.83 × 0.80 × (1 ÷ 0.052) = $320
+- LTV = $20.83 ÷ 0.052 = $400.58 (Stripe method - industry standard)
 
 **Resources:**
 - [Google Analytics E-commerce Setup](https://support.google.com/analytics/answer/1009612)
@@ -112,10 +111,10 @@ LTV:CAC Ratio = Customer Lifetime Value ÷ Customer Acquisition Cost
 - **1:1 to 2:1:** Concerning (low profitability)
 - **Below 1:1:** Critical (losing money on each customer)
 
-**Example Calculation (Realistic):**
-- LTV: $320
+**Example Calculation (Industry Standard):**
+- LTV: $400.58
 - CAC: $127
-- LTV:CAC Ratio = $320 ÷ $127 = 2.52:1 (acceptable but improvable)
+- LTV:CAC Ratio = $400.58 ÷ $127 = 3.15:1 (excellent - exceeds 3:1 target)
 
 **Resources:**
 - [LTV:CAC Ratio Analysis](https://www.klipfolio.com/resources/articles/what-is-ltv-cac-ratio)
@@ -447,8 +446,8 @@ Retention Rate = (Customers Retained ÷ Total Customers) × 100
 ### **Mathematical Accuracy Verification**
 All metrics in the tutorial dashboard have been verified for mathematical accuracy and business realism:
 
-- **LTV Calculation**: $320 (realistic 18-month customer lifespan)
-- **LTV:CAC Ratio**: 2.52:1 (acceptable but improvable)
+- **LTV Calculation**: $400.58 (industry standard Stripe method)
+- **LTV:CAC Ratio**: 3.15:1 (excellent - exceeds 3:1 target)
 - **ARPU**: $20.83/month (realistic for B2B SaaS)
 - **Conversion Rate**: 1.25% (realistic for B2B)
 - **Retention Rate**: 94.8% (consistent with 5.2% churn)

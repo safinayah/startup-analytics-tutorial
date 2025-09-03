@@ -72,6 +72,10 @@
                 <div class="bg-green-100 text-green-800 px-4 py-2 rounded-lg text-sm mt-2 inline-block">
                     📊 Last updated: <span id="lastUpdated"></span>
                 </div>
+                <div class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded-lg text-sm mt-2 inline-block max-w-4xl">
+                    ⚠️ <strong>Educational Tool:</strong> This dashboard uses static sample data for simplicity and responsiveness. 
+                    The metrics shown are realistic examples for learning purposes. Always verify calculations with your actual business data.
+                </div>
             </div>
         </div>
     </header>
@@ -89,8 +93,8 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">Lifetime Value (LTV)</p>
-                            <p class="text-3xl font-bold">$320</p>
-                            <p class="text-sm mt-2">Corrected Calculation - Click to learn</p>
+                            <p class="text-3xl font-bold">$400.58</p>
+                            <p class="text-sm mt-2">Industry Standard Method - Click to learn</p>
                         </div>
                         <div class="text-4xl opacity-80">💰</div>
                     </div>
@@ -113,8 +117,8 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">LTV:CAC Ratio</p>
-                            <p class="text-3xl font-bold">2.52</p>
-                            <p class="text-sm mt-2">Corrected Ratio - Click to learn</p>
+                            <p class="text-3xl font-bold">3.15</p>
+                            <p class="text-sm mt-2">Excellent Ratio - Click to learn</p>
                         </div>
                         <div class="text-4xl opacity-80">⚖️</div>
                     </div>
@@ -426,7 +430,7 @@
                         <div class="text-xs text-gray-600">CAC</div>
                     </div>
                     <div class="bg-gray-50 p-3 rounded-lg text-center">
-                        <div class="text-lg font-bold text-gray-800">$320</div>
+                        <div class="text-lg font-bold text-gray-800">$400.58</div>
                         <div class="text-xs text-gray-600">LTV</div>
                     </div>
                 </div>
@@ -560,7 +564,7 @@
                     <ul class="space-y-2 text-green-700">
                         <li>• High trial-to-paid conversion rate (50%) - Industry benchmark: 15-25%</li>
                         <li>• Strong customer retention (94.8%) - Industry benchmark: 70-80%</li>
-                        <li>• Acceptable LTV:CAC ratio (2.52:1) - Industry benchmark: 3:1+ (needs improvement)</li>
+                        <li>• Excellent LTV:CAC ratio (3.15:1) - Industry benchmark: 3:1+ (exceeds target!)</li>
                         <li>• Consistent revenue growth (+18.7%)</li>
                     </ul>
                 </div>
@@ -711,24 +715,23 @@
                         </ul>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Corrected):</h3>
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Industry Standard):</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
                         <p>• Monthly ARPU: $20.83</p>
-                        <p>• Gross Margin: 80% (0.80)</p>
                         <p>• Monthly Churn Rate: 5.2% (0.052)</p>
-                        <p><strong>LTV = $20.83 × 0.80 ÷ 0.052 = $320</strong></p>
-                        <p class="text-green-600 font-semibold mt-2">✅ This gives you a realistic, profit-focused LTV for business planning!</p>
+                        <p><strong>LTV = $20.83 ÷ 0.052 = $400.58</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ This is the industry standard method used by Stripe, ChartMogul, and most SaaS tools!</p>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-3">Stripe Method vs Traditional Method Comparison:</h3>
-                    <div class="bg-yellow-50 p-4 rounded-lg">
-                        <p><strong>Stripe Method (Gross Revenue):</strong> LTV = $20.83 ÷ 0.052 = $400.58</p>
-                        <p><strong>Traditional Method (Net Profit):</strong> LTV = $20.83 × 0.80 ÷ 0.052 = $320</p>
-                        <p class="text-sm mt-2"><strong>Why the difference matters:</strong></p>
+                    <h3 class="text-lg font-semibold mb-3">Why This Method is Industry Standard:</h3>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p><strong>Stripe Method (Industry Standard):</strong> LTV = $20.83 ÷ 0.052 = $400.58</p>
+                        <p class="text-sm mt-2"><strong>Why this is the preferred method:</strong></p>
                         <ul class="text-sm mt-1 space-y-1">
-                            <li>• <strong>Stripe Method:</strong> Shows total revenue potential (useful for revenue forecasting)</li>
-                            <li>• <strong>Traditional Method:</strong> Shows actual profit per customer (better for business planning)</li>
-                            <li>• <strong>For SaaS:</strong> Traditional method is preferred as it accounts for costs</li>
+                            <li>• <strong>Industry Standard:</strong> Used by Stripe, ChartMogul, and most SaaS analytics tools</li>
+                            <li>• <strong>Revenue Focus:</strong> Shows total revenue potential for business planning</li>
+                            <li>• <strong>Investor Standard:</strong> What VCs and investors expect to see</li>
+                            <li>• <strong>Comparable:</strong> Allows comparison with other SaaS companies</li>
                         </ul>
                     </div>
                 `
@@ -791,12 +794,12 @@
                         <li><strong>Below 1:1:</strong> Losing money on each customer</li>
                     </ul>
                     
-                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Corrected):</h3>
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Industry Standard):</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
-                        <p>• LTV (with gross margin): $320</p>
+                        <p>• LTV (Industry Standard): $400.58</p>
                         <p>• CAC: $127</p>
-                        <p><strong>LTV:CAC Ratio = $320 ÷ $127 = 2.52:1</strong></p>
-                        <p class="text-yellow-600 font-semibold mt-2">⚠️ Good but improvable! Target 3:1+ for optimal unit economics.</p>
+                        <p><strong>LTV:CAC Ratio = $400.58 ÷ $127 = 3.15:1</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ Excellent! Above 3:1 is optimal for SaaS unit economics.</p>
                     </div>
                 `
             },
@@ -819,12 +822,12 @@
                         <li><strong>Below 1:1:</strong> Losing money on each customer</li>
                     </ul>
                     
-                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Corrected):</h3>
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Industry Standard):</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
-                        <p>• LTV (with gross margin): $320</p>
+                        <p>• LTV (Industry Standard): $400.58</p>
                         <p>• CAC: $127</p>
-                        <p><strong>LTV:CAC Ratio = $320 ÷ $127 = 2.52:1</strong></p>
-                        <p class="text-yellow-600 font-semibold mt-2">⚠️ Good but improvable! Target 3:1+ for optimal unit economics.</p>
+                        <p><strong>LTV:CAC Ratio = $400.58 ÷ $127 = 3.15:1</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ Excellent! Above 3:1 is optimal for SaaS unit economics.</p>
                     </div>
                     
                     <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">

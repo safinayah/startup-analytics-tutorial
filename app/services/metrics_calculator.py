@@ -1,0 +1,358 @@
+"""
+Dynamic Metrics Calculator Service
+Calculates all business metrics from data files
+"""
+
+import json
+import os
+from typing import Dict, Any
+from decimal import Decimal, ROUND_HALF_UP
+
+class MetricsCalculator:
+    """
+    Service to calculate all business metrics dynamically from data
+    """
+    
+    def __init__(self, data_file_path: str = "data/business_metrics.json"):
+        """
+        Initialize the calculator with data file path
+        """
+        self.data_file_path = data_file_path
+        self.data = self._load_data()
+    
+    def _load_data(self) -> Dict[str, Any]:
+        """
+        Load business metrics data from JSON file
+        """
+        try:
+            with open(self.data_file_path, 'r') as file:
+                return json.load(file)
+        except FileNotFoundError:
+            print(f"Warning: Data file {self.data_file_path} not found. Using default values.")
+            return self._get_default_data()
+        except json.JSONDecodeError as e:
+            print(f"Error parsing JSON file: {e}")
+            return self._get_default_data()
+    
+    def _get_default_data(self) -> Dict[str, Any]:
+        """
+        Return default data if file is not found
+        """
+        return {
+            "core_metrics": {
+                "monthly_arpu": 20.83,
+                "cac": 127.0,
+                "monthly_churn_rate": 0.052,
+                "gross_margin": 0.80,
+                "monthly_active_users": 2400,
+                "website_visitors": 12450,
+                "paid_customers": 187
+            }
+        }
+    
+    def _round_currency(self, value: float, decimals: int = 2) -> float:
+        """
+        Round currency values properly
+        """
+        return round(value, decimals)
+    
+    def _round_percentage(self, value: float, decimals: int = 1) -> float:
+        """
+        Round percentage values properly
+        """
+        return round(value, decimals)
+    
+    def calculate_ltv(self, method: str = "stripe") -> Dict[str, Any]:
+        """
+        Calculate Lifetime Value using different methods
+        
+        Args:
+            method: "stripe" (industry standard) or "traditional"
+        """
+        arpu = self.data["core_metrics"]["monthly_arpu"]
+        churn = self.data["core_metrics"]["monthly_churn_rate"]
+        gross_margin = self.data["core_metrics"]["gross_margin"]
+        
+        if method == "stripe":
+            # Industry standard: LTV = ARPU ÷ Churn Rate
+            ltv = arpu / churn
+            method_name = "Stripe Method (Industry Standard)"
+        else:
+            # Traditional: LTV = ARPU × Gross Margin ÷ Churn Rate
+            ltv = arpu * gross_margin / churn
+            method_name = "Traditional Method (Net Profit)"
+        
+        return {
+            "value": self._round_currency(ltv),
+            "method": method_name,
+            "formula": f"LTV = ${arpu} ÷ {churn} = ${self._round_currency(ltv)}" if method == "stripe" else f"LTV = ${arpu} × {gross_margin} ÷ {churn} = ${self._round_currency(ltv)}",
+            "inputs": {
+                "arpu": arpu,
+                "churn_rate": churn,
+                "gross_margin": gross_margin if method != "stripe" else None
+            }
+        }
+    
+    def calculate_ltv_cac_ratio(self) -> Dict[str, Any]:
+        """
+        Calculate LTV:CAC ratio
+        """
+        ltv_data = self.calculate_ltv("stripe")
+        ltv = ltv_data["value"]
+        cac = self.data["core_metrics"]["cac"]
+        
+        ratio = ltv / cac
+        
+        # Determine assessment
+        if ratio >= 3.0:
+            assessment = "Excellent"
+            status = "success"
+            message = "Above 3:1 is optimal for SaaS unit economics"
+        elif ratio >= 2.0:
+            assessment = "Good"
+            status = "warning"
+            message = "Room for improvement - target 3:1+"
+        elif ratio >= 1.0:
+            assessment = "Concerning"
+            status = "warning"
+            message = "Low profitability"
+        else:
+            assessment = "Critical"
+            status = "danger"
+            message = "Losing money on each customer"
+        
+        return {
+            "ratio": self._round_currency(ratio, 2),
+            "ltv": ltv,
+            "cac": cac,
+            "assessment": assessment,
+            "status": status,
+            "message": message,
+            "formula": f"LTV:CAC = ${ltv} ÷ ${cac} = {self._round_currency(ratio, 2)}:1"
+        }
+    
+    def calculate_mrr(self) -> Dict[str, Any]:
+        """
+        Calculate Monthly Recurring Revenue
+        """
+        active_users = self.data["core_metrics"]["monthly_active_users"]
+        arpu = self.data["core_metrics"]["monthly_arpu"]
+        
+        mrr = active_users * arpu
+        
+        return {
+            "value": self._round_currency(mrr),
+            "active_users": active_users,
+            "arpu": arpu,
+            "formula": f"MRR = {active_users:,} × ${arpu} = ${self._round_currency(mrr):,}"
+        }
+    
+    def calculate_arr(self) -> Dict[str, Any]:
+        """
+        Calculate Annual Recurring Revenue
+        """
+        mrr_data = self.calculate_mrr()
+        mrr = mrr_data["value"]
+        
+        arr = mrr * 12
+        
+        return {
+            "value": self._round_currency(arr),
+            "mrr": mrr,
+            "formula": f"ARR = ${mrr:,.2f} × 12 = ${self._round_currency(arr):,}"
+        }
+    
+    def calculate_payback_period(self) -> Dict[str, Any]:
+        """
+        Calculate payback period in months
+        """
+        cac = self.data["core_metrics"]["cac"]
+        arpu = self.data["core_metrics"]["monthly_arpu"]
+        
+        payback_period = cac / arpu
+        
+        # Determine assessment
+        if payback_period <= 6:
+            assessment = "Excellent"
+            status = "success"
+            message = "Under 6 months is excellent"
+        elif payback_period <= 12:
+            assessment = "Good"
+            status = "success"
+            message = "Under 12 months is good"
+        elif payback_period <= 18:
+            assessment = "Acceptable"
+            status = "warning"
+            message = "Acceptable but could be better"
+        else:
+            assessment = "Too Long"
+            status = "danger"
+            message = "Payback period is too long"
+        
+        return {
+            "months": self._round_currency(payback_period, 1),
+            "cac": cac,
+            "arpu": arpu,
+            "assessment": assessment,
+            "status": status,
+            "message": message,
+            "formula": f"Payback = ${cac} ÷ ${arpu} = {self._round_currency(payback_period, 1)} months"
+        }
+    
+    def calculate_conversion_rate(self) -> Dict[str, Any]:
+        """
+        Calculate overall conversion rate
+        """
+        visitors = self.data["core_metrics"]["website_visitors"]
+        customers = self.data["core_metrics"]["paid_customers"]
+        
+        conversion_rate = (customers / visitors) * 100
+        
+        # Determine assessment
+        if conversion_rate >= 2.0:
+            assessment = "Excellent"
+            status = "success"
+        elif conversion_rate >= 1.0:
+            assessment = "Good"
+            status = "success"
+        elif conversion_rate >= 0.5:
+            assessment = "Acceptable"
+            status = "warning"
+        else:
+            assessment = "Low"
+            status = "danger"
+        
+        return {
+            "rate": self._round_percentage(conversion_rate, 2),
+            "visitors": visitors,
+            "customers": customers,
+            "assessment": assessment,
+            "status": status,
+            "formula": f"Conversion = ({customers} ÷ {visitors:,}) × 100 = {self._round_percentage(conversion_rate, 2)}%"
+        }
+    
+    def calculate_retention_metrics(self) -> Dict[str, Any]:
+        """
+        Calculate retention and churn metrics
+        """
+        churn_rate = self.data["core_metrics"]["monthly_churn_rate"]
+        retention_rate = 1 - churn_rate
+        
+        return {
+            "churn_rate": self._round_percentage(churn_rate * 100, 1),
+            "retention_rate": self._round_percentage(retention_rate * 100, 1),
+            "formula": f"Retention = (1 - {churn_rate}) × 100 = {self._round_percentage(retention_rate * 100, 1)}%"
+        }
+    
+    def calculate_nrr(self) -> Dict[str, Any]:
+        """
+        Calculate Net Revenue Retention
+        """
+        mrr_data = self.calculate_mrr()
+        mrr = mrr_data["value"]
+        
+        # NRR calculation with expansion and churn
+        starting_mrr = mrr * 0.95  # 95% of current
+        expansion_revenue = mrr * 0.15  # 15% expansion
+        churn_revenue = mrr * 0.052  # 5.2% churn
+        
+        nrr = ((starting_mrr + expansion_revenue - churn_revenue) / starting_mrr) * 100
+        
+        # Determine assessment
+        if nrr >= 110:
+            assessment = "Excellent"
+            status = "success"
+            message = "Above 100% means growing from existing customers"
+        elif nrr >= 100:
+            assessment = "Good"
+            status = "success"
+            message = "At or above 100% is healthy"
+        elif nrr >= 90:
+            assessment = "Acceptable"
+            status = "warning"
+            message = "Below 100% means revenue contraction"
+        else:
+            assessment = "Concerning"
+            status = "danger"
+            message = "Significant revenue loss"
+        
+        return {
+            "rate": self._round_percentage(nrr, 1),
+            "starting_mrr": self._round_currency(starting_mrr),
+            "expansion_revenue": self._round_currency(expansion_revenue),
+            "churn_revenue": self._round_currency(churn_revenue),
+            "assessment": assessment,
+            "status": status,
+            "message": message,
+            "formula": f"NRR = (${self._round_currency(starting_mrr):,} + ${self._round_currency(expansion_revenue):,} - ${self._round_currency(churn_revenue):,}) ÷ ${self._round_currency(starting_mrr):,} × 100 = {self._round_percentage(nrr, 1)}%"
+        }
+    
+    def get_all_metrics(self) -> Dict[str, Any]:
+        """
+        Calculate and return all business metrics
+        """
+        return {
+            "ltv": self.calculate_ltv("stripe"),
+            "ltv_cac_ratio": self.calculate_ltv_cac_ratio(),
+            "mrr": self.calculate_mrr(),
+            "arr": self.calculate_arr(),
+            "payback_period": self.calculate_payback_period(),
+            "conversion_rate": self.calculate_conversion_rate(),
+            "retention_metrics": self.calculate_retention_metrics(),
+            "nrr": self.calculate_nrr(),
+            "raw_data": self.data["core_metrics"]
+        }
+    
+    def update_data(self, new_data: Dict[str, Any]) -> bool:
+        """
+        Update the data file with new values
+        """
+        try:
+            # Update the data
+            self.data.update(new_data)
+            
+            # Save back to file
+            with open(self.data_file_path, 'w') as file:
+                json.dump(self.data, file, indent=2)
+            
+            return True
+        except Exception as e:
+            print(f"Error updating data: {e}")
+            return False
+
+# Example usage and testing
+if __name__ == "__main__":
+    calculator = MetricsCalculator()
+    
+    print("=== DYNAMIC METRICS CALCULATION ===")
+    print()
+    
+    # Test individual calculations
+    ltv = calculator.calculate_ltv("stripe")
+    print(f"LTV: ${ltv['value']} ({ltv['method']})")
+    
+    ratio = calculator.calculate_ltv_cac_ratio()
+    print(f"LTV:CAC Ratio: {ratio['ratio']}:1 ({ratio['assessment']})")
+    
+    mrr = calculator.calculate_mrr()
+    print(f"MRR: ${mrr['value']:,}")
+    
+    arr = calculator.calculate_arr()
+    print(f"ARR: ${arr['value']:,}")
+    
+    payback = calculator.calculate_payback_period()
+    print(f"Payback Period: {payback['months']} months ({payback['assessment']})")
+    
+    conversion = calculator.calculate_conversion_rate()
+    print(f"Conversion Rate: {conversion['rate']}% ({conversion['assessment']})")
+    
+    retention = calculator.calculate_retention_metrics()
+    print(f"Retention Rate: {retention['retention_rate']}%")
+    
+    nrr = calculator.calculate_nrr()
+    print(f"NRR: {nrr['rate']}% ({nrr['assessment']})")
+    
+    print()
+    print("=== ALL METRICS ===")
+    all_metrics = calculator.get_all_metrics()
+    print(f"All metrics calculated successfully: {len(all_metrics)} categories")

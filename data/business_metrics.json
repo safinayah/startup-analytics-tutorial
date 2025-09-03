@@ -1,0 +1,74 @@
+{
+  "company_info": {
+    "name": "StartupTracker Demo",
+    "industry": "SaaS",
+    "business_model": "Subscription"
+  },
+  "core_metrics": {
+    "monthly_arpu": 20.83,
+    "cac": 127.0,
+    "monthly_churn_rate": 0.052,
+    "gross_margin": 0.80,
+    "monthly_active_users": 2400,
+    "website_visitors": 12450,
+    "paid_customers": 187
+  },
+  "revenue_data": {
+    "current_month_revenue": 49992,
+    "previous_month_revenue": 42000,
+    "monthly_growth_rate": 0.187
+  },
+  "conversion_funnel": {
+    "website_visitors": 12450,
+    "sign_ups": 1245,
+    "trial_users": 374,
+    "paid_customers": 187,
+    "retained_customers": 156
+  },
+  "traffic_sources": {
+    "organic_search": {
+      "visitors": 5603,
+      "percentage": 45.0,
+      "conversion_rate": 0.015
+    },
+    "social_media": {
+      "visitors": 3113,
+      "percentage": 25.0,
+      "conversion_rate": 0.008
+    },
+    "paid_ads": {
+      "visitors": 1868,
+      "percentage": 15.0,
+      "conversion_rate": 0.012
+    },
+    "referrals": {
+      "visitors": 1245,
+      "percentage": 10.0,
+      "conversion_rate": 0.020
+    },
+    "direct_traffic": {
+      "visitors": 622,
+      "percentage": 5.0,
+      "conversion_rate": 0.025
+    }
+  },
+  "retention_data": {
+    "monthly_churn_rate": 0.052,
+    "retention_rate": 0.948,
+    "expansion_rate": 0.15,
+    "net_revenue_retention": 1.108
+  },
+  "user_behavior": {
+    "sessions_per_user": 4.2,
+    "average_session_duration": 12.5,
+    "return_user_rate": 0.67,
+    "bounce_rate": 0.352,
+    "pages_per_session": 3.8
+  },
+  "feature_usage": {
+    "dashboard_analytics": 85,
+    "export_reports": 67,
+    "api_integration": 42,
+    "custom_dashboards": 28
+  }
+}

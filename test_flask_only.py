@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+"""
+Test Flask app functionality only
+"""
+
+import sys
+sys.path.append('app')
+
+def test_flask_app():
+    print("🔍 FLASK APP TEST")
+    print("=" * 30)
+    
+    try:
+        from app import create_app
+        print("✅ Flask app imports successfully")
+        
+        app = create_app()
+        print("✅ Flask app creates successfully")
+        
+        with app.test_client() as client:
+            # Test main route
+            response = client.get('/')
+            if response.status_code == 200:
+                print("✅ Main route works")
+            else:
+                print(f"❌ Main route failed: {response.status_code}")
+                return False
+            
+            # Test API route
+            response = client.get('/api/metrics')
+            if response.status_code == 200:
+                data = response.get_json()
+                if data.get('success'):
+                    print("✅ API route works")
+                    print(f"📊 API returns {len(data['data'])} metric categories")
+                else:
+                    print(f"❌ API returned error: {data.get('error')}")
+                    return False
+            else:
+                print(f"❌ API route failed: {response.status_code}")
+                return False
+            
+            # Test individual API endpoints
+            endpoints = [
+                '/api/metrics/ltv',
+                '/api/metrics/ltv-cac-ratio',
+                '/api/metrics/mrr',
+                '/api/metrics/arr',
+                '/api/metrics/payback-period',
+                '/api/metrics/conversion-rate',
+                '/api/metrics/retention',
+                '/api/metrics/nrr'
+            ]
+            
+            for endpoint in endpoints:
+                response = client.get(endpoint)
+                if response.status_code == 200:
+                    data = response.get_json()
+                    if data.get('success'):
+                        print(f"✅ {endpoint} works")
+                    else:
+                        print(f"❌ {endpoint} returned error: {data.get('error')}")
+                        return False
+                else:
+                    print(f"❌ {endpoint} failed: {response.status_code}")
+                    return False
+        
+        print("\n" + "=" * 30)
+        print("🎉 FLASK TESTS PASSED!")
+        print("✅ All API endpoints working")
+        print("=" * 30)
+        return True
+        
+    except Exception as e:
+        print(f"❌ Flask error: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
+if __name__ == "__main__":
+    success = test_flask_app()
+    sys.exit(0 if success else 1)

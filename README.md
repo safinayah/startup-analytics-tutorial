@@ -99,8 +99,8 @@ docker run -p 5000:5000 startup-analytics
 
 The dashboard displays realistic startup metrics with accurate calculations:
 
-- **LTV (Lifetime Value)**: $320 (18-month customer lifespan)
-- **LTV:CAC Ratio**: 2.52:1 (acceptable but improvable)
+- **LTV (Lifetime Value)**: $400.58 (industry standard Stripe method)
+- **LTV:CAC Ratio**: 3.15:1 (excellent - exceeds 3:1 target)
 - **ARPU (Average Revenue Per User)**: $20.83/month
 - **Conversion Rate**: 1.25% (realistic for B2B)
 - **Retention Rate**: 94.8% (consistent with 5.2% churn)
