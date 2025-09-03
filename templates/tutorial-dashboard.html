@@ -368,7 +368,7 @@
                     <!-- Funnel Stage 5: Retained Customers -->
                     <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('retained-customers')">
                         <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-2 rounded-lg shadow-lg relative mx-24">
-                            <div class="text-base font-bold mb-1">156</div>
+                            <div class="text-base font-bold mb-1">177</div>
                             <div class="text-sm font-semibold">Retained (6mo)</div>
                             <div class="text-xs opacity-90 mt-1">94.8% Retention Rate</div>
                         </div>
@@ -720,11 +720,16 @@
                         <p class="text-green-600 font-semibold mt-2">✅ This gives you a realistic, profit-focused LTV for business planning!</p>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-3">Why Gross Margin Matters:</h3>
+                    <h3 class="text-lg font-semibold mb-3">Stripe Method vs Traditional Method Comparison:</h3>
                     <div class="bg-yellow-50 p-4 rounded-lg">
-                        <p><strong>Without Gross Margin:</strong> LTV = $20.83 ÷ 0.052 = $400.58 (gross revenue)</p>
-                        <p><strong>With Gross Margin:</strong> LTV = $20.83 × 0.80 ÷ 0.052 = $320 (net profit)</p>
-                        <p class="text-sm mt-2">The gross margin version shows actual profit per customer, which is more useful for business decisions.</p>
+                        <p><strong>Stripe Method (Gross Revenue):</strong> LTV = $20.83 ÷ 0.052 = $400.58</p>
+                        <p><strong>Traditional Method (Net Profit):</strong> LTV = $20.83 × 0.80 ÷ 0.052 = $320</p>
+                        <p class="text-sm mt-2"><strong>Why the difference matters:</strong></p>
+                        <ul class="text-sm mt-1 space-y-1">
+                            <li>• <strong>Stripe Method:</strong> Shows total revenue potential (useful for revenue forecasting)</li>
+                            <li>• <strong>Traditional Method:</strong> Shows actual profit per customer (better for business planning)</li>
+                            <li>• <strong>For SaaS:</strong> Traditional method is preferred as it accounts for costs</li>
+                        </ul>
                     </div>
                 `
             },
@@ -792,6 +797,43 @@
                         <p>• CAC: $127</p>
                         <p><strong>LTV:CAC Ratio = $320 ÷ $127 = 2.52:1</strong></p>
                         <p class="text-yellow-600 font-semibold mt-2">⚠️ Good but improvable! Target 3:1+ for optimal unit economics.</p>
+                    </div>
+                `
+            },
+            'ltv-cac': {
+                title: "⚖️ How to Calculate LTV:CAC Ratio",
+                content: `
+                    <h3 class="text-lg font-semibold mb-3">What is LTV:CAC Ratio?</h3>
+                    <p class="mb-4">This ratio shows how much value you get from a customer compared to how much it costs to acquire them.</p>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Formula:</h3>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <code class="text-lg">LTV:CAC Ratio = LTV ÷ CAC</code>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">What the numbers mean:</h3>
+                    <ul class="list-disc list-inside space-y-2 mb-4">
+                        <li><strong>3:1 or higher:</strong> Excellent! You're making 3x what you spend to acquire customers</li>
+                        <li><strong>2:1 to 3:1:</strong> Good, but room for improvement</li>
+                        <li><strong>1:1 to 2:1:</strong> Breaking even or small profit</li>
+                        <li><strong>Below 1:1:</strong> Losing money on each customer</li>
+                    </ul>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Corrected):</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• LTV (with gross margin): $320</p>
+                        <p>• CAC: $127</p>
+                        <p><strong>LTV:CAC Ratio = $320 ÷ $127 = 2.52:1</strong></p>
+                        <p class="text-yellow-600 font-semibold mt-2">⚠️ Good but improvable! Target 3:1+ for optimal unit economics.</p>
+                    </div>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Official GA4 Resources:</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-blue-900">GA4 Video Tutorial Series</a></li>
+                            <li>• <a href="https://developers.google.com/analytics/devguides/collection/ga4/" target="_blank" class="underline hover:text-blue-900">GA4 Developer Guide</a></li>
+                            <li>• <a href="https://github.com/googleanalytics/ga4-tutorials" target="_blank" class="underline hover:text-blue-900">GA4 Tutorials & Code Examples</a></li>
+                        </ul>
                     </div>
                 `
             },
