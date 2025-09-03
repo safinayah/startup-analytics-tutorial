@@ -89,8 +89,8 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">Lifetime Value (LTV)</p>
-                            <p class="text-3xl font-bold">$400.58</p>
-                            <p class="text-sm mt-2">Stripe Method - Click to learn</p>
+                            <p class="text-3xl font-bold">$320</p>
+                            <p class="text-sm mt-2">Corrected Calculation - Click to learn</p>
                         </div>
                         <div class="text-4xl opacity-80">💰</div>
                     </div>
@@ -113,8 +113,8 @@
                     <div class="flex items-center justify-between">
                         <div>
                             <p class="text-sm opacity-90">LTV:CAC Ratio</p>
-                            <p class="text-3xl font-bold">3.15</p>
-                            <p class="text-sm mt-2">Updated with Stripe LTV</p>
+                            <p class="text-3xl font-bold">2.52</p>
+                            <p class="text-sm mt-2">Corrected Ratio - Click to learn</p>
                         </div>
                         <div class="text-4xl opacity-80">⚖️</div>
                     </div>
@@ -426,7 +426,7 @@
                         <div class="text-xs text-gray-600">CAC</div>
                     </div>
                     <div class="bg-gray-50 p-3 rounded-lg text-center">
-                        <div class="text-lg font-bold text-gray-800">$400.58</div>
+                        <div class="text-lg font-bold text-gray-800">$320</div>
                         <div class="text-xs text-gray-600">LTV</div>
                     </div>
                 </div>
@@ -592,6 +592,37 @@
                 </div>
             </div>
         </section>
+
+        <!-- Official GA4 Resources -->
+        <section class="mb-12">
+            <div class="bg-green-50 border-l-4 border-green-400 p-6 rounded-lg">
+                <h3 class="text-lg font-semibold text-green-800 mb-4">📚 Official Google Analytics 4 Resources</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <h4 class="font-semibold text-green-700 mb-2">🎥 Learning Resources:</h4>
+                        <ul class="text-green-600 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-green-800">GA4 Video Tutorial Series</a></li>
+                            <li>• <a href="https://analytics.google.com/analytics/academy/" target="_blank" class="underline hover:text-green-800">Google Analytics Academy</a></li>
+                            <li>• <a href="https://github.com/googleanalytics/ga4-tutorials" target="_blank" class="underline hover:text-green-800">GA4 Tutorials & Code Examples</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-green-700 mb-2">🛠️ Implementation Guides:</h4>
+                        <ul class="text-green-600 space-y-1 text-sm">
+                            <li>• <a href="https://developers.google.com/analytics/devguides/collection/ga4/" target="_blank" class="underline hover:text-green-800">GA4 Developer Guide</a></li>
+                            <li>• <a href="https://support.google.com/analytics/answer/1009612" target="_blank" class="underline hover:text-green-800">Enhanced E-commerce Setup</a></li>
+                            <li>• <a href="https://tagmanager.google.com/" target="_blank" class="underline hover:text-green-800">Google Tag Manager</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="mt-4 p-3 bg-green-100 rounded-lg">
+                    <p class="text-green-700 text-sm">
+                        <strong>💡 Pro Tip:</strong> All links open in new tabs and point to official Google documentation. 
+                        These resources are regularly updated to reflect the latest GA4 interface and features.
+                    </p>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Instruction Modal -->
@@ -645,44 +676,55 @@
 
         const instructions = {
             ltv: {
-                title: "💰 How to Calculate Customer Lifetime Value (LTV) - Stripe Method",
+                title: "💰 How to Calculate Customer Lifetime Value (LTV)",
                 content: `
                     <h3 class="text-lg font-semibold mb-3">What is LTV?</h3>
                     <p class="mb-4">Customer Lifetime Value is the total revenue you expect from a customer over their entire relationship with your business.</p>
                     
-                    <h3 class="text-lg font-semibold mb-3">Stripe's Recommended Formula:</h3>
+                    <h3 class="text-lg font-semibold mb-3">Recommended Formula (Industry Standard):</h3>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <code class="text-lg">LTV = Monthly ARPU ÷ Monthly Churn Rate</code>
+                        <code class="text-lg">LTV = ARPU × Gross Margin ÷ Monthly Churn Rate</code>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-3">Why Stripe's method is better:</h3>
+                    <h3 class="text-lg font-semibold mb-3">Why this formula is better:</h3>
                     <ul class="list-disc list-inside space-y-2 mb-4">
-                        <li><strong>Simpler:</strong> Only needs ARPU and churn rate</li>
-                        <li><strong>More Accurate:</strong> Based on actual subscription data</li>
-                        <li><strong>Industry Standard:</strong> Used by most SaaS companies</li>
-                        <li><strong>Real-time:</strong> Reflects current customer behavior</li>
+                        <li><strong>Accounts for costs:</strong> Includes gross margin for realistic profit</li>
+                        <li><strong>Industry Standard:</strong> Used by most SaaS companies and investors</li>
+                        <li><strong>Conservative:</strong> Provides realistic, achievable targets</li>
+                        <li><strong>Profit-focused:</strong> Shows actual profit per customer</li>
                     </ul>
                     
-                    <h3 class="text-lg font-semibold mb-3">How to get this data from Google Analytics:</h3>
+                    <h3 class="text-lg font-semibold mb-3">How to get this data from Google Analytics 4:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
-                        <li><strong>Monthly ARPU:</strong> Go to Reports → Monetization → E-commerce → Average purchase revenue</li>
+                        <li><strong>ARPU:</strong> Go to Reports → Monetization → E-commerce purchases → Average purchase revenue</li>
+                        <li><strong>Gross Margin:</strong> Calculate from your business (typically 70-80% for SaaS)</li>
                         <li><strong>Monthly Churn:</strong> Go to Reports → Engagement → Retention → Calculate monthly churn rate</li>
-                        <li><strong>Alternative:</strong> Use subscription analytics tools like Stripe Dashboard</li>
+                        <li><strong>Alternative:</strong> Use subscription analytics tools like Stripe Dashboard or Mixpanel</li>
                     </ol>
                     
-                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Stripe Method):</h3>
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <p>• Monthly ARPU: $20.83</p>
-                        <p>• Monthly Churn Rate: 5.2% (0.052)</p>
-                        <p><strong>LTV = $20.83 ÷ 0.052 = $400.58</strong></p>
-                        <p class="text-green-600 font-semibold mt-2">✅ This is 25% higher than the traditional method, giving you a more accurate LTV!</p>
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Official GA4 Resources:</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-blue-900">GA4 Video Tutorial Series</a></li>
+                            <li>• <a href="https://developers.google.com/analytics/devguides/collection/ga4/" target="_blank" class="underline hover:text-blue-900">GA4 Developer Guide</a></li>
+                            <li>• <a href="https://github.com/googleanalytics/ga4-tutorials" target="_blank" class="underline hover:text-blue-900">GA4 Tutorials & Code Examples</a></li>
+                        </ul>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-3">Traditional vs Stripe Method:</h3>
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Corrected):</h3>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <p>• Monthly ARPU: $20.83</p>
+                        <p>• Gross Margin: 80% (0.80)</p>
+                        <p>• Monthly Churn Rate: 5.2% (0.052)</p>
+                        <p><strong>LTV = $20.83 × 0.80 ÷ 0.052 = $320</strong></p>
+                        <p class="text-green-600 font-semibold mt-2">✅ This gives you a realistic, profit-focused LTV for business planning!</p>
+                    </div>
+                    
+                    <h3 class="text-lg font-semibold mb-3">Why Gross Margin Matters:</h3>
                     <div class="bg-yellow-50 p-4 rounded-lg">
-                        <p><strong>Traditional:</strong> LTV = ARPU × Gross Margin ÷ Churn = $20.83 × 0.80 ÷ 0.052 = $320</p>
-                        <p><strong>Stripe Method:</strong> LTV = ARPU ÷ Churn = $20.83 ÷ 0.052 = $400.58</p>
-                        <p class="text-sm mt-2">The Stripe method gives you the gross revenue LTV, which is more useful for SaaS businesses.</p>
+                        <p><strong>Without Gross Margin:</strong> LTV = $20.83 ÷ 0.052 = $400.58 (gross revenue)</p>
+                        <p><strong>With Gross Margin:</strong> LTV = $20.83 × 0.80 ÷ 0.052 = $320 (net profit)</p>
+                        <p class="text-sm mt-2">The gross margin version shows actual profit per customer, which is more useful for business decisions.</p>
                     </div>
                 `
             },
@@ -701,9 +743,19 @@
                     <ol class="list-decimal list-inside space-y-2 mb-4">
                         <li><strong>Track Marketing Spend:</strong> Record all advertising costs (Google Ads, Facebook, etc.)</li>
                         <li><strong>Track Sales Costs:</strong> Include sales team salaries, tools, commissions</li>
-                        <li><strong>Count New Customers:</strong> Go to GA4 → Reports → Acquisition → User acquisition</li>
+                        <li><strong>Count New Customers:</strong> Go to GA4 → Reports → Acquisition → User acquisition → New users</li>
                         <li><strong>Calculate:</strong> Total costs ÷ New customers = CAC</li>
+                        <li><strong>Pro Tip:</strong> Use UTM parameters to track campaign costs accurately</li>
                     </ol>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Official GA4 Resources:</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/1033863" target="_blank" class="underline hover:text-blue-900">UTM Parameter Guide</a></li>
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-blue-900">GA4 Video Tutorial Series</a></li>
+                            <li>• <a href="https://developers.google.com/analytics/devguides/collection/ga4/" target="_blank" class="underline hover:text-blue-900">GA4 Developer Guide</a></li>
+                        </ul>
+                    </div>
                     
                     <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
@@ -734,12 +786,12 @@
                         <li><strong>Below 1:1:</strong> Losing money on each customer</li>
                     </ul>
                     
-                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Updated with Stripe LTV):</h3>
+                    <h3 class="text-lg font-semibold mb-3">Example Calculation (Corrected):</h3>
                     <div class="bg-blue-50 p-4 rounded-lg">
-                        <p>• LTV (Stripe method): $400.58</p>
+                        <p>• LTV (with gross margin): $320</p>
                         <p>• CAC: $127</p>
-                        <p><strong>LTV:CAC Ratio = $400.58 ÷ $127 = 3.15:1</strong></p>
-                        <p class="text-green-600 font-semibold mt-2">✅ Excellent! This is above the 3:1 target for healthy unit economics.</p>
+                        <p><strong>LTV:CAC Ratio = $320 ÷ $127 = 2.52:1</strong></p>
+                        <p class="text-yellow-600 font-semibold mt-2">⚠️ Good but improvable! Target 3:1+ for optimal unit economics.</p>
                     </div>
                 `
             },
@@ -756,10 +808,11 @@
                     
                     <h3 class="text-lg font-semibold mb-3">How to track this in Google Analytics:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
-                        <li><strong>Set up Ecommerce tracking:</strong> Enable enhanced ecommerce in GA4</li>
-                        <li><strong>Track subscription events:</strong> Set up "subscription_started" and "subscription_renewed" events</li>
-                        <li><strong>Count active subscribers:</strong> Go to Reports → Engagement → Events → "subscription_renewed"</li>
-                        <li><strong>Calculate ARPU:</strong> Total subscription revenue ÷ Number of subscribers</li>
+                        <li><strong>Set up Enhanced Ecommerce:</strong> Enable ecommerce tracking in GA4</li>
+                        <li><strong>Track subscription events:</strong> Set up custom events like "subscription_started" and "subscription_renewed"</li>
+                        <li><strong>Count active subscribers:</strong> Go to Reports → Engagement → Events → Filter by "subscription_renewed"</li>
+                        <li><strong>Calculate ARPU:</strong> Total subscription revenue ÷ Number of active subscribers</li>
+                        <li><strong>Alternative:</strong> Use Stripe Dashboard or other subscription analytics tools for more accurate MRR tracking</li>
                     </ol>
                     
                     <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
@@ -784,13 +837,23 @@
                         <code class="text-lg">Conversion Rate = (Conversions ÷ Total Visitors) × 100</code>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics 4:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
-                        <li><strong>Set up Goals:</strong> Go to Admin → Goals → Create new goal</li>
-                        <li><strong>Define conversion:</strong> Choose destination, duration, pages/screens, or events</li>
-                        <li><strong>View reports:</strong> Go to Reports → Conversions → Goals</li>
-                        <li><strong>Track by source:</strong> See which traffic sources convert best</li>
+                        <li><strong>Set up Conversions:</strong> Go to Admin → Data display → Conversions → Create conversion event</li>
+                        <li><strong>Define conversion:</strong> Choose from existing events or create custom events</li>
+                        <li><strong>View reports:</strong> Go to Reports → Engagement → Conversions</li>
+                        <li><strong>Track by source:</strong> Go to Reports → Acquisition → Traffic acquisition to see conversion rates by channel</li>
+                        <li><strong>Pro Tip:</strong> Use Google Tag Manager for easier conversion tracking setup</li>
                     </ol>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Official GA4 Resources:</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/9267568" target="_blank" class="underline hover:text-blue-900">GA4 Conversion Tracking Guide</a></li>
+                            <li>• <a href="https://tagmanager.google.com/" target="_blank" class="underline hover:text-blue-900">Google Tag Manager</a></li>
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-blue-900">GA4 Video Tutorial Series</a></li>
+                        </ul>
+                    </div>
                     
                     <h3 class="text-lg font-semibold mb-3">Common Conversion Goals:</h3>
                     <ul class="list-disc list-inside space-y-2 mb-4">
@@ -815,10 +878,11 @@
                     
                     <h3 class="text-lg font-semibold mb-3">How to track this:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
-                        <li><strong>Track subscription cancellations:</strong> Set up "subscription_cancelled" event in GA4</li>
+                        <li><strong>Track subscription cancellations:</strong> Set up "subscription_cancelled" custom event in GA4</li>
                         <li><strong>Monitor user activity:</strong> Go to Reports → Engagement → Retention</li>
                         <li><strong>Calculate monthly:</strong> Count users who were active last month but not this month</li>
-                        <li><strong>Use cohort analysis:</strong> See retention rates by user acquisition date</li>
+                        <li><strong>Use cohort analysis:</strong> Go to Reports → Engagement → Retention → Cohort analysis</li>
+                        <li><strong>Alternative:</strong> Use subscription analytics tools like Stripe Dashboard for more accurate churn tracking</li>
                     </ol>
                     
                     <h3 class="text-lg font-semibold mb-3">Example Calculation:</h3>
@@ -847,13 +911,23 @@
                         <code class="text-lg">Retention Rate = (Customers Retained ÷ Total Customers) × 100</code>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics 4:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
                         <li><strong>Go to Reports → Engagement → Retention</strong></li>
                         <li><strong>View cohort analysis:</strong> See how user groups retain over time</li>
                         <li><strong>Track by acquisition date:</strong> See retention by when users first visited</li>
-                        <li><strong>Monitor by traffic source:</strong> See which channels bring the most retained users</li>
+                        <li><strong>Monitor by traffic source:</strong> Go to Reports → Acquisition → Traffic acquisition to see retention by channel</li>
+                        <li><strong>Set up custom events:</strong> Track specific user actions to measure engagement</li>
                     </ol>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Official GA4 Resources:</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/10085872" target="_blank" class="underline hover:text-blue-900">Custom Events Guide</a></li>
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-blue-900">GA4 Video Tutorial Series</a></li>
+                            <li>• <a href="https://developers.google.com/analytics/devguides/collection/ga4/" target="_blank" class="underline hover:text-blue-900">GA4 Developer Guide</a></li>
+                        </ul>
+                    </div>
                     
                     <h3 class="text-lg font-semibold mb-3">Key Retention Metrics:</h3>
                     <ul class="list-disc list-inside space-y-2 mb-4">
@@ -876,13 +950,23 @@
                     <h3 class="text-lg font-semibold mb-3">What is Organic Search?</h3>
                     <p class="mb-4">Traffic that comes from search engines (Google, Bing, etc.) when people find your website through unpaid search results.</p>
                     
-                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics 4:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
                         <li><strong>Go to Reports → Acquisition → Traffic acquisition</strong></li>
                         <li><strong>Look for "Organic search"</strong> in the source/medium breakdown</li>
-                        <li><strong>View keywords:</strong> Go to Reports → Acquisition → Google Ads → Search queries</li>
-                        <li><strong>Track performance:</strong> See which keywords bring the most valuable traffic</li>
+                        <li><strong>View search terms:</strong> Go to Reports → Acquisition → Traffic acquisition → Filter by "google / organic"</li>
+                        <li><strong>Track performance:</strong> See which search terms bring the most valuable traffic</li>
+                        <li><strong>Connect Search Console:</strong> Link Google Search Console for detailed keyword data</li>
                     </ol>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Official GA4 Resources:</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/1033863" target="_blank" class="underline hover:text-blue-900">UTM Parameter Guide</a></li>
+                            <li>• <a href="https://search.google.com/search-console/" target="_blank" class="underline hover:text-blue-900">Google Search Console</a></li>
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-blue-900">GA4 Video Tutorial Series</a></li>
+                        </ul>
+                    </div>
                     
                     <h3 class="text-lg font-semibold mb-3">Key Metrics to Track:</h3>
                     <ul class="list-disc list-inside space-y-2 mb-4">
@@ -907,12 +991,13 @@
                     <h3 class="text-lg font-semibold mb-3">What is Social Media Traffic?</h3>
                     <p class="mb-4">Visitors who come to your website from social media platforms like Facebook, Twitter, LinkedIn, Instagram, etc.</p>
                     
-                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics 4:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
                         <li><strong>Go to Reports → Acquisition → Traffic acquisition</strong></li>
-                        <li><strong>Look for social media sources:</strong> Facebook, Twitter, LinkedIn, etc.</li>
+                        <li><strong>Look for social media sources:</strong> Facebook, Twitter, LinkedIn, Instagram, etc.</li>
                         <li><strong>View detailed breakdown:</strong> Click on "Social" to see all platforms</li>
-                        <li><strong>Track engagement:</strong> See which posts drive the most traffic</li>
+                        <li><strong>Track engagement:</strong> Go to Reports → Engagement → Events to see social interactions</li>
+                        <li><strong>Use UTM parameters:</strong> Add ?utm_source=facebook&utm_medium=social to your social media links</li>
                     </ol>
                     
                     <h3 class="text-lg font-semibold mb-3">Key Metrics to Track:</h3>
@@ -939,13 +1024,23 @@
                     <h3 class="text-lg font-semibold mb-3">What is Paid Ads Traffic?</h3>
                     <p class="mb-4">Visitors who come to your website from paid advertising campaigns (Google Ads, Facebook Ads, etc.).</p>
                     
-                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics 4:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
                         <li><strong>Go to Reports → Acquisition → Traffic acquisition</strong></li>
                         <li><strong>Look for "Paid search" and "Paid social"</strong> in the source/medium</li>
-                        <li><strong>Connect Google Ads:</strong> Link your Google Ads account for detailed data</li>
-                        <li><strong>Track campaigns:</strong> See which ads perform best</li>
+                        <li><strong>Connect Google Ads:</strong> Link your Google Ads account in Admin → Product links</li>
+                        <li><strong>Track campaigns:</strong> Go to Reports → Acquisition → Google Ads to see campaign performance</li>
+                        <li><strong>Use UTM parameters:</strong> Add campaign tracking to all paid ads for accurate attribution</li>
                     </ol>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Official GA4 Resources:</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/1033863" target="_blank" class="underline hover:text-blue-900">UTM Parameter Guide</a></li>
+                            <li>• <a href="https://support.google.com/analytics/answer/10085872" target="_blank" class="underline hover:text-blue-900">Google Ads Integration</a></li>
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-blue-900">GA4 Video Tutorial Series</a></li>
+                        </ul>
+                    </div>
                     
                     <h3 class="text-lg font-semibold mb-3">Key Metrics to Track:</h3>
                     <ul class="list-disc list-inside space-y-2 mb-4">
@@ -1048,13 +1143,23 @@
                         <code class="text-lg">Revenue Growth = ((Current Period Revenue - Previous Period Revenue) ÷ Previous Period Revenue) × 100</code>
                     </div>
                     
-                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics:</h3>
+                    <h3 class="text-lg font-semibold mb-3">How to track in Google Analytics 4:</h3>
                     <ol class="list-decimal list-inside space-y-2 mb-4">
-                        <li><strong>Go to Reports → Monetization → E-commerce overview</strong></li>
-                        <li><strong>Set up Enhanced E-commerce:</strong> Enable e-commerce tracking in GA4</li>
+                        <li><strong>Go to Reports → Monetization → E-commerce purchases</strong></li>
+                        <li><strong>Set up Enhanced E-commerce:</strong> Enable e-commerce tracking in GA4 Admin</li>
                         <li><strong>Track transactions:</strong> Use the 'purchase' event with revenue data</li>
-                        <li><strong>View revenue trends:</strong> Use date range comparisons</li>
+                        <li><strong>View revenue trends:</strong> Use date range comparisons in the overview</li>
+                        <li><strong>Set up custom events:</strong> Track subscription renewals and recurring revenue</li>
                     </ol>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-400 p-4 rounded-lg mt-4">
+                        <h4 class="font-semibold text-blue-800 mb-2">📚 Official GA4 Resources:</h4>
+                        <ul class="text-blue-700 space-y-1 text-sm">
+                            <li>• <a href="https://support.google.com/analytics/answer/1009612" target="_blank" class="underline hover:text-blue-900">Enhanced E-commerce Setup</a></li>
+                            <li>• <a href="https://developers.google.com/analytics/devguides/collection/ga4/ecommerce" target="_blank" class="underline hover:text-blue-900">GA4 E-commerce Implementation</a></li>
+                            <li>• <a href="https://support.google.com/analytics/answer/13284728" target="_blank" class="underline hover:text-blue-900">GA4 Video Tutorial Series</a></li>
+                        </ul>
+                    </div>
                     
                     <h3 class="text-lg font-semibold mb-3">Key Revenue Metrics to Track:</h3>
                     <ul class="list-disc list-inside space-y-2 mb-4">
