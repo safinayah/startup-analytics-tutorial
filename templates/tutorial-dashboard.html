@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Startup Metrics Tutorial - StartupTracker</title>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QDBVBGHBFE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QDBVBGHBFE');
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
@@ -606,7 +616,7 @@
     </footer>
 
     <script>
-        // Update timestamp on page load
+        // Update timestamp on page load and track GA4 events
         document.addEventListener('DOMContentLoaded', function() {
             const now = new Date();
             const timestamp = now.toLocaleString('en-US', {
@@ -618,6 +628,19 @@
                 timeZoneName: 'short'
             });
             document.getElementById('lastUpdated').textContent = timestamp;
+            
+            // Track page view
+            gtag('event', 'page_view', {
+                'page_title': 'Startup Metrics Tutorial Dashboard',
+                'page_location': window.location.href,
+                'content_group1': 'Tutorial Dashboard'
+            });
+            
+            // Track tutorial engagement
+            gtag('event', 'tutorial_started', {
+                'tutorial_name': 'Startup Metrics Tutorial',
+                'tutorial_category': 'Business Analytics'
+            });
         });
 
         const instructions = {
@@ -1452,6 +1475,13 @@
         };
 
         function showInstructions(metric) {
+            // Track GA4 event when user clicks on a metric
+            gtag('event', 'metric_clicked', {
+                'metric_name': metric,
+                'metric_category': 'tutorial_interaction',
+                'page_title': 'Startup Metrics Tutorial'
+            });
+            
             const modal = document.getElementById('instructionModal');
             const title = document.getElementById('modalTitle');
             const content = document.getElementById('modalContent');
