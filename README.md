@@ -15,6 +15,7 @@ A simple, educational dashboard that teaches startup owners how to track key bus
 - **🎓 Educational Focus**: Learn what to track and how to calculate metrics
 - **🚀 Zero Setup**: No database, no complex configuration - just run and learn!
 - **✅ Mathematically Accurate**: All calculations verified and realistic for startups
+- **🔗 GA4 Integration Ready**: Connect to your own Google Analytics 4 data (see integration guide)
 
 ## 🚀 Quick Start
 
@@ -138,6 +139,7 @@ startup-analytics-tutorial/
 ## 📚 Additional Resources
 
 - **[GA_METRICS_GUIDE.md](GA_METRICS_GUIDE.md)**: Comprehensive guide to Google Analytics metrics
+- **[GA4_INTEGRATION_GUIDE.md](GA4_INTEGRATION_GUIDE.md)**: Step-by-step guide to connect your own GA4 data
 - **[BUILD_YOUR_OWN_DASHBOARD.md](BUILD_YOUR_OWN_DASHBOARD.md)**: How to export GA data and build custom dashboards
 - **[LINKEDIN_POSTS.md](LINKEDIN_POSTS.md)**: Ready-to-use LinkedIn content for promotion
 - **[SLIDE_DECK_CONTENT.md](SLIDE_DECK_CONTENT.md)**: Professional presentation content
