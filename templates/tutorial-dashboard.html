@@ -313,60 +313,107 @@
                 🔄 Conversion Funnel Analysis - Click Each Stage to Learn How to Track
             </h2>
             <div class="bg-white rounded-xl shadow-lg p-6">
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
-                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('website-visitors')">
-                        <div class="bg-blue-100 text-blue-800 p-4 rounded-lg">
-                            <div class="text-2xl font-bold">12,450</div>
-                            <div class="text-sm">Website Visitors</div>
-                            <div class="text-xs text-gray-600">100%</div>
+                <!-- Compact Visual Funnel -->
+                <div class="relative mb-6">
+                    <!-- Funnel Stage 1: Website Visitors -->
+                    <div class="text-center mb-2 cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('website-visitors')">
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-t-xl shadow-lg relative">
+                            <div class="text-2xl font-bold mb-1">12,450</div>
+                            <div class="text-sm font-semibold">Website Visitors</div>
+                            <div class="text-xs opacity-90 mt-1">100%</div>
+                            <div class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-blue-600"></div>
                         </div>
                     </div>
-                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('sign-ups')">
-                        <div class="bg-green-100 text-green-800 p-4 rounded-lg">
-                            <div class="text-2xl font-bold">1,245</div>
-                            <div class="text-sm">Sign-ups</div>
-                            <div class="text-xs text-gray-600">10.0%</div>
+
+                    <!-- Funnel Stage 2: Sign-ups -->
+                    <div class="text-center mb-2 cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('sign-ups')">
+                        <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-3 rounded-lg shadow-lg relative mx-4">
+                            <div class="text-xl font-bold mb-1">1,245</div>
+                            <div class="text-sm font-semibold">Sign-ups</div>
+                            <div class="text-xs opacity-90 mt-1">10.0%</div>
+                            <div class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-3 border-r-3 border-t-3 border-transparent border-t-green-600"></div>
                         </div>
                     </div>
-                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('trial-users')">
-                        <div class="bg-yellow-100 text-yellow-800 p-4 rounded-lg">
-                            <div class="text-2xl font-bold">374</div>
-                            <div class="text-sm">Trial Users</div>
-                            <div class="text-xs text-gray-600">30.0%</div>
+
+                    <!-- Funnel Stage 3: Trial Users -->
+                    <div class="text-center mb-2 cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('trial-users')">
+                        <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white p-2 rounded-lg shadow-lg relative mx-8">
+                            <div class="text-lg font-bold mb-1">374</div>
+                            <div class="text-sm font-semibold">Trial Users</div>
+                            <div class="text-xs opacity-90 mt-1">30.0%</div>
+                            <div class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-yellow-600"></div>
                         </div>
                     </div>
-                    <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('paid-customers')">
-                        <div class="bg-purple-100 text-purple-800 p-4 rounded-lg">
-                            <div class="text-2xl font-bold">187</div>
-                            <div class="text-sm">Paid Customers</div>
-                            <div class="text-xs text-gray-600">50.0%</div>
+
+                    <!-- Funnel Stage 4: Paid Customers -->
+                    <div class="text-center mb-2 cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('paid-customers')">
+                        <div class="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-2 rounded-lg shadow-lg relative mx-12">
+                            <div class="text-base font-bold mb-1">187</div>
+                            <div class="text-sm font-semibold">Paid Customers</div>
+                            <div class="text-xs opacity-90 mt-1">50.0%</div>
+                            <div class="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-purple-600"></div>
                         </div>
                     </div>
+
+                    <!-- Funnel Stage 5: Retained Customers -->
                     <div class="text-center cursor-pointer hover:scale-105 transition-transform" onclick="showInstructions('retained-customers')">
-                        <div class="bg-red-100 text-red-800 p-4 rounded-lg">
-                            <div class="text-2xl font-bold">156</div>
-                            <div class="text-sm">Retained (6mo)</div>
-                            <div class="text-xs text-gray-600">94.8%</div>
+                        <div class="bg-gradient-to-r from-red-500 to-red-600 text-white p-2 rounded-lg shadow-lg relative mx-16">
+                            <div class="text-base font-bold mb-1">156</div>
+                            <div class="text-sm font-semibold">Retained (6mo)</div>
+                            <div class="text-xs opacity-90 mt-1">94.8%</div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="bg-blue-50 border-l-4 border-blue-400 p-4">
-                    <div class="flex">
+
+                <!-- Compact Conversion Rate Arrows -->
+                <div class="flex justify-center items-center space-x-4 mb-4">
+                    <div class="text-center">
+                        <div class="text-lg">⬇️</div>
+                        <div class="text-xs font-semibold text-gray-600">10.0%</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg">⬇️</div>
+                        <div class="text-xs font-semibold text-gray-600">30.0%</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg">⬇️</div>
+                        <div class="text-xs font-semibold text-gray-600">50.0%</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-lg">⬇️</div>
+                        <div class="text-xs font-semibold text-gray-600">94.8%</div>
+                    </div>
+                </div>
+
+                <!-- Compact Key Insights -->
+                <div class="bg-gradient-to-r from-blue-50 to-green-50 border-l-4 border-blue-400 p-4 rounded-lg mb-4">
+                    <div class="flex items-start">
                         <div class="flex-shrink-0">
-                            <div class="text-blue-400">💡</div>
+                            <div class="text-blue-500 text-lg">💡</div>
                         </div>
                         <div class="ml-3">
-                            <h3 class="text-sm font-medium text-blue-800">Key Insights</h3>
-                            <div class="mt-2 text-sm text-blue-700">
-                                <ul class="list-disc list-inside space-y-1">
-                                    <li>Sign-up rate (10%) is above industry average (2-5%)</li>
-                                    <li>Trial-to-paid conversion (50%) is excellent</li>
-                                    <li>Retention rate (94.8%) indicates strong product-market fit</li>
-                                    <li>Focus on increasing website traffic to scale growth</li>
-                                </ul>
+                            <h3 class="text-sm font-semibold text-blue-800 mb-2">Key Insights</h3>
+                            <div class="text-xs text-blue-700 space-y-1">
+                                <p><strong>Strengths:</strong> 10% sign-up rate (2x industry avg), 50% trial conversion, 94.8% retention</p>
+                                <p><strong>Opportunities:</strong> Scale traffic, improve trial conversion to 60%, reduce churn</p>
                             </div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Compact Funnel Metrics Summary -->
+                <div class="grid grid-cols-3 gap-3">
+                    <div class="bg-gray-50 p-3 rounded-lg text-center">
+                        <div class="text-lg font-bold text-gray-800">1.25%</div>
+                        <div class="text-xs text-gray-600">Overall Conversion</div>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg text-center">
+                        <div class="text-lg font-bold text-gray-800">$127</div>
+                        <div class="text-xs text-gray-600">CAC</div>
+                    </div>
+                    <div class="bg-gray-50 p-3 rounded-lg text-center">
+                        <div class="text-lg font-bold text-gray-800">$400.58</div>
+                        <div class="text-xs text-gray-600">LTV</div>
                     </div>
                 </div>
             </div>
